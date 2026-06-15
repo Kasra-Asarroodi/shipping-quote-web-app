@@ -1,0 +1,296 @@
+
+/* 
+   Navigation bar
+   Interactive navigation bar with the name of pack and send unley.
+*/
+
+*{
+    margin:0;
+    padding:0;
+    box-sizing:border-box;
+}
+
+.navbar{
+    background-color:#1f2937;
+    padding:25px 50px;
+}
+
+.nav-links{
+    display:flex;
+    justify-content:center;
+    align-items:center;
+    gap:50px;
+
+    list-style:none;
+}
+
+.nav-links a{
+    text-decoration:none;
+    color:white;
+
+    font-size:1.3rem;     
+    font-weight:600;
+
+    padding:12px 18px;
+    border-radius:8px;
+
+    transition:0.3s;
+}
+
+.nav-links a:hover{
+    background-color:#2563eb;
+}
+
+
+.navbar{
+    display:flex;
+    justify-content:space-between;
+    align-items:center;
+
+    background-color:#1f2937;
+    padding:25px 60px;
+}
+
+.logo{
+    color:white;
+    font-size:2rem;
+}
+
+
+
+/* 
+   Application page
+   Syling component for the application section 
+*/
+
+
+body {
+    margin: 0;
+    font-family: Arial, sans-serif;
+    background: #f4f6f8;
+}
+
+header h1 {
+    text-align: center;
+    padding: 25px;
+    font-size: 2.2rem;
+}
+
+form {
+    max-width: 1000px;
+    margin: 40px auto;
+    background: white;
+    padding: 35px;
+    border-radius: 14px;
+    box-shadow: 0 8px 25px rgba(0,0,0,0.1);
+}
+
+fieldset {
+    border: none;
+    margin-bottom: 25px;
+}
+
+legend {
+    font-size: 1.5rem;
+    font-weight: bold;
+    margin-bottom: 20px;
+}
+
+label {
+    display: block;
+    margin-top: 15px;
+    font-weight: bold;
+}
+
+input {
+    width: 100%;
+    padding: 13px;
+    margin-top: 6px;
+    border: 1px solid #ccc;
+    border-radius: 8px;
+    font-size: 1rem;
+}
+
+button {
+    padding: 12px 22px;
+    border: none;
+    border-radius: 8px;
+    background: #1f2937;
+    color: white;
+    font-size: 1rem;
+    cursor: pointer;
+    margin: 10px 5px 10px 0;
+}
+
+.submit-btn {
+background-color:rgb(53, 122, 99)
+}
+
+.submit-btn:hover{
+    background-color: darkgreen;
+}
+
+
+button:hover {
+    background: #374151;
+}
+
+.reset-btn {
+    background-color:tomato
+}
+.reset-btn:hover {
+    background-color: crimson;
+}
+
+#senderPopup,
+#receiverPopup {
+    display: none;
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    
+    background: white;
+    padding: 30px;
+    width: 400px;
+    border-radius: 14px;
+    box-shadow: 0 10px 35px rgba(0,0,0,0.3);
+    z-index: 1000;
+}
+
+
+
+.close-btn{
+    background-color: rgb(182, 88, 88);
+    width: 45px;
+    display: flex;
+    align-items: center;
+    cursor: pointer;
+    justify-content: center;
+}
+
+.close-btn:hover{
+    background-color:brown
+}
+/* 
+   About us page
+   structure for the about us page
+*/
+
+.about-container{
+    display: flex;
+    align-items: center;      /* vertically centers image and text */
+    justify-content: center;  /* centers the whole section */
+    gap: 40px;
+    max-width: 1200px;
+    margin: 50px auto;
+    padding: 20px;
+}
+
+.about-image img{
+    width: 650px;
+    height: auto;
+    border-radius: 10px;
+}
+
+.about-text{
+    flex: 1;
+    max-width: 600px;
+
+    border: 2px solid #1f2937;
+    border-radius: 10px;
+
+    padding:   25px;
+    background-color: white;
+
+    box-shadow: 0 5px 15px rgba(0,0,0,0.15);
+    margin-top: 5px;
+    position: relative;
+    top: -60px;
+}
+
+.about-text h2{
+    margin-top: 0;
+    color: #1f2937;
+}
+
+.about-text p{
+    line-height: 1.6;
+}
+
+/* 
+   Contact us page
+   strucutre for how the communication methods are presented. 
+*/
+
+.content-header{
+    text-align:center;
+    margin-top:50px;
+    margin-bottom:90px;
+}
+.content-header p{
+    font-size: 1.5rem;
+    font-weight: bold;
+    text-align: center;
+}
+.contact-grid{
+    margin-top: 50px;
+
+    display:grid;
+
+    grid-template-columns: 1fr 1fr;
+
+    gap:25px;
+
+    max-width:900px;
+
+    margin:auto;
+}
+
+.contact-card{
+    background:white;
+
+    padding:20px;
+
+    border-radius:12px;
+
+    border:2px solid #1f2937;
+
+    box-shadow:
+        0 5px 15px rgba(0,0,0,0.15);
+
+    text-align:center;
+}
+
+/* 
+   Error handling
+   how the errors of the application are presented 
+*/
+
+.error-messages {
+  display: none;
+  margin-top: 20px;
+  padding: 16px 20px;
+  border: 1px solid #ffb3b3;
+  border-left: 6px solid #e63946;
+  background-color: #fff5f5;
+  color: #8a1f1f;
+  border-radius: 8px;
+  font-size: 15px;
+  line-height: 1.5;
+}
+
+.error-messages strong {
+  display: block;
+  margin-bottom: 8px;
+  font-size: 16px;
+}
+
+.error-messages ul {
+  margin: 0;
+  padding-left: 20px;
+}
+
+.error-messages li {
+  margin-bottom: 4px;
+}
