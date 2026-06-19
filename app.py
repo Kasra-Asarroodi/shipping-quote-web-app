@@ -4,16 +4,16 @@ app = Flask(__name__)
 
 @app.route('/', methods=['GET', 'POST'])
 def home():
-    result = ""
+    result = None
 
     if request.method == 'POST':
         sender = sender_info(request.form)
         receiver = receiver_info(request.form)
         quote = quote_info(request.form)
 
-        save_enquiry(sender_info, receiver_info, quote_info)
+        save_enquiry(sender, receiver, quote)
 
-        result = quote_info["total_price"]
+        result = quote["total_price"]
     
     return render_template('index.html', result=result)
 
@@ -21,12 +21,12 @@ def home():
 
 
 def sender_info (form):
-   return {"name": form["sender_name"], "phone":form["sender_phone"],  "email": form ["sender_email"]}
+   return {"name": form["sender_name", ""], "phone":form["sender_phone", ""],  "email": form ["sender_email",""]}
 
   
 
 def receiver_info(form):
-    return {"name": form["receiver_name"], "phone":form["receiver_phone"],  "email": form ["receiver_email"], "Address":["receiver_address"]}
+    return {"name": form["receiver_name", ""], "phone":form["receiver_phone", ""],  "email": form ["receiver_email", ""], "Address":["receiver_address", ""]}
 
 
 
@@ -75,14 +75,14 @@ def calculate_weight_price(weight):
     for max_weight, price in weight_rates:
        if weight <= max_weight:
            return price
-    return None
+    return 0
 
 
    
-def calculate_insurance(insurance, weight):
+def calculate_insurance(value):
     
-   insurance = weight / 5
-   return insurance
+   return value / 5
+   
 
 
 def calculate_medication_price(medication):
@@ -99,23 +99,9 @@ def calculate_total_price(weight_price, insurance_price, medication_price, elect
    
    
 
-def save_enquiry (sender_info, receiver_info, quote_info):
-   import os
-   import json
-   enquiry = {"sender": sender_info, "receiver":receiver_info, "quote information": quote_info }
-   
-   file_path = "enquiries.json"
-   if os.path.exists(file_path):
-      with open (file_path, "r") as file:
-         enquiries = json.load(file)
-   else:
-      enquiries = []
-   enquiries.append(enquiry)
 
-with open(file_path, "w") as file:
-   json.dump(enquiries, file, "r")
+if __name__ == "__main__":
+    app.run(debug=True)
 
- 
-app.run(debug=True)
 
 

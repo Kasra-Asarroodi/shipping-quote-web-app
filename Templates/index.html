@@ -1,8 +1,8 @@
 
 <html lang = "en">
 <head>
-    <link rel = "stylesheet" href = ../style.css>
-    <script src = "../script.js" defer></script>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+    <script src="{{ url_for('static', filename='script.js') }}" defer></script>
     <title> Freight and Packaging (SCB) </title>
 </head>
 <body>
@@ -44,7 +44,7 @@
             <button type="button" class="close-btn" onclick="closeSenderPopup()">x</button>
             <input name="sender_name" id="sendername"placeholder="Sender name">
             <input name="sender_phone" id="senderphone" placeholder="Sender phone">
-            <input name="sender_address" id = "senderaddress" placeholder="Sender address">
+            <input name="sender_email" id = "senderemail" placeholder="Sender email">
           </div>
           <div id="receiverPopup">
             <button type="button" class= "close-btn" onclick="closeReceiverPopup()">x</button>
@@ -54,12 +54,27 @@
             <input name="receiver_address" id = "receiveraddress" placeholder="Receiver address">
             </div>
             <button type="submit" class="submit-btn">Submit enquiry:</button>
+
+            {% if result %}
+              <div class="quote-result">
+                   Estimated price: ${{ result }}
+              </div>
+            {% endif %}
             <div class="error-messages" id= "error-messages"></div>
         </fieldset>
 </form>
 
-
+<footer class = "footer-content">
+    <div class="social-links">
+        <a href="https://www.instagram.com/p/DY8lT-4GoO_/">
+            <img src="../resources/instagram.png"alt="instagram-link">
+        </a>
+        <a href = "https://www.facebook.com/p/Southern-Cross-Beam-Pty-Ltd-61577005209085/" >
+            <img src="../resources/facebook.png"alt="facebook-link">
+        </a>
+    </div>
+    <p>© 2026 SCB Pty Ltd.</p>
+</footer>
 
 </body>
 </html>
-</footer

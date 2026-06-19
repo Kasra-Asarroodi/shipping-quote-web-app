@@ -2,20 +2,19 @@
 console.log ("kasra");
 const animalContainer = document.getElementById("quoteinfo");
 
-function renderAnimals(animalList){
-    if (!animalContainer)return;
+function renderAnimals(quoteInfo){
+    if (!quoteInfo)return;
    
    
-    animalContainer.innerHTML= '';
+    quoteinformation.innerHTML= '';
      
-    animalList.forEach (animal => {  
-       const cardHTML= `
-       <a href= "${animal.Link}" class="animal-card-link">
-        <div class="animal-card">
-          <img src= "${animal.Image}" alt="${animal.Name}">
-          <p><strong>Name:</strong>${animal.Name}</p>
-          <p><strong>Status:</strong>${animal.Age}</p>
-          <p><strong>Breed:</strong>${animal.Breed}</p>
+    animalList.forEach (quote => {  
+       const quotehtmll= `
+       <a href= "${quote.price}" class="animal-card-link">
+        <div class="quote-card">
+          <p><strong>Name:</strong>${quote.sendername}</p>
+          <p><strong>Status:</strong>${quote.price}</p>
+          <p><strong>Breed:</strong>${quote.senderPHONE}</p>
         </div>
       `;
        animalContainer.innerHTML += cardHTML;
