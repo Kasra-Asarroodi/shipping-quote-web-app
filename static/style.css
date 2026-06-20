@@ -358,3 +358,107 @@ button:hover {
     font-weight: bold;
     text-align: center;
 }
+
+/* 
+   Price information
+*/
+
+.weight-price {
+    width: 80%;
+    margin: 40px auto;
+    border-collapse: collapse;
+    background: white;
+    box-shadow: 0 8px 25px rgba(0, 0, 0, 0.08);
+    border-radius: 10px;
+    overflow: hidden;
+    font-size: 15px;
+}
+
+.weight-price thead {
+    background: #d9e2f3;
+}
+
+.weight-price th {
+    padding: 16px;
+    text-align: left;
+    font-weight: 700;
+    color: #333;
+}
+
+.weight-price td {
+    padding: 14px 16px;
+    border-bottom: 1px solid #eee;
+    color: #333;
+}
+
+.weight-price tbody tr:nth-child(even) {
+    background: #f8f9fc;
+}
+
+.weight-price tbody tr:hover {
+    background: #eef3ff;
+}
+
+
+.additional-cost {
+    width: 80%;
+    margin: 40px auto;
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+}
+
+.cost-card {
+    background: #ffffff;
+    border: 1px solid #e5e7eb;
+    border-left: 5px solid #2d6a4f;
+    border-radius: 10px;
+    padding: 22px;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.05);
+}
+
+.cost-card h2 {
+    margin-bottom: 12px;
+    font-size: 1.2rem;
+    color: #1f2937;
+}
+
+.cost-card p {
+    line-height: 1.7;
+    color: #4b5563;
+    margin: 0;
+}
+
+/* Different accent colours */
+
+.insurance-cost {
+    border-left-color: #2563eb;
+}
+
+.medication-cost {
+    border-left-color: #f59e0b;
+}
+
+.electronic-cost {
+    border-left-color: #10b981;
+}
+
+/* Notice section */
+
+.notice {
+    background: #fff8e7;
+    border: 1px solid #fde68a;
+    border-radius: 10px;
+    padding: 18px 22px;
+}
+
+.notice h2 {
+    margin-bottom: 8px;
+    color: #92400e;
+}
+
+.notice p {
+    margin: 0;
+    color: #78350f;
+    line-height: 1.6;
+}

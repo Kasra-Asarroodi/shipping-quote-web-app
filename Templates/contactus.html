@@ -1,8 +1,8 @@
 
 <html lang = "en">
 <head>
-    <link rel = "stylesheet" href = ../style.css>
-    <script src = "../script.js" defer></script>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+    <script src="{{ url_for('static', filename='script.js') }}" defer></script>
     <title> Freight and Packagin (SCB) </title>
 </head>
 <body>
@@ -12,12 +12,13 @@
 
     <h1 class="logo">PACK & SEND UNLEY</h1>
 
-    <ul class="nav-links">
-        <li><a href="index.html">Calculation</a></li>
-        <li><a href="Aboutus.html">About Us</a></li>
-        <li><a href="contactus.html">Contact Us</a></li>
-        <li><a href="Saveddata.php">Your Enquiries</a></li>
-    </ul>
+   <ul class="nav-links">
+    <li><a href="{{ url_for('home') }}">Calculation</a></li>
+    <li><a href="{{ url_for('about') }}">About Us</a></li>
+    <li><a href="{{ url_for('contact') }}">Contact Us</a></li>
+    <li><a href="{{ url_for('enquiries') }}">Your Enquiries</a></li>
+    <li><a href="{{ url_for('info') }}">Price info</a></li>
+   </ul>
 
    </nav>
   </header>
@@ -54,15 +55,17 @@
      
     </section>
     </main>
-<footer class = "footer-content">
+<footer class="footer-content">
     <div class="social-links">
-        <a href="https://www.instagram.com/p/DY8lT-4GoO_/">
-            <img src="../resources/instagram.png"alt="instagram-link">
+        <a href="https://www.instagram.com/p/DY8IT-4Go0_/" target="_blank">
+            <img src="{{ url_for('static', filename='instagram.png') }}" alt="instagram-link">
         </a>
-        <a href = "https://www.facebook.com/p/Southern-Cross-Beam-Pty-Ltd-61577005209085/" >
-            <img src="../resources/facebook.png"alt="facebook-link">
+
+        <a href="https://www.facebook.com/p/Southern-Cross-Beam-Pty-Ltd-61577005209085/" target="_blank">
+            <img src="{{ url_for('static', filename='facebook.png') }}" alt="facebook-link">
         </a>
     </div>
+
     <p>© 2026 SCB Pty Ltd.</p>
 </footer>
 </body>

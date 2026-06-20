@@ -1,0 +1,213 @@
+<html lang = "en">
+<head>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+    <script src="{{ url_for('static', filename='script.js') }}" defer></script>
+    <title> Freight and Packaging (SCB) </title>
+</head>
+<body>
+  <header>
+  
+    <nav class="navbar">
+
+    <h1 class="logo">PACK & SEND UNLEY</h1>
+
+    <ul class="nav-links">
+       <li><a href="{{ url_for('home') }}">Calculation</a></li>
+       <li><a href="{{ url_for('about') }}">About Us</a></li>
+       <li><a href="{{ url_for('contact') }}">Contact Us</a></li>
+       <li><a href="{{ url_for('enquiries') }}">Your Enquiries</a></li>
+       <li><a href="{{ url_for('info') }}">Price info</a></li>
+   </ul>
+
+   </nav>
+</header>
+<main class="table page">
+    <table class="weight-price">
+        <thead>
+            <tr>
+                <th>Weight (KG)</th>
+                <th>Price (AUD)</th>
+                <th>Delivery Time</th>
+            </tr>
+        </thead>
+
+        <tbody>
+            <tr>
+                <td>Less than 1KG</td>
+                <td>$90</td>
+                <td>4-5 Weeks</td>
+            </tr>
+           
+            <tr>
+                <td>From 1-2</td>
+                <td>$140</td>
+                <td>4-5 Weeks</td>
+            </tr>
+
+            <tr>
+                <td>From 2–3KG</td>
+                <td>$195</td>
+                <td>4–5 Weeks</td>
+            </tr>
+            <tr>
+                <td>From 3–4KG</td>
+                <td>$250</td>
+                <td>4–5 Weeks</td>
+            </tr>
+            <tr>
+                <td>From 4–5KG</td>
+                <td>$300</td>
+                <td>4–5 Weeks</td>
+            </tr>
+            <tr>
+                <td>From 5–6KG</td>
+                <td>$355</td>
+                <td>4–5 Weeks</td>
+            </tr>
+            <tr>
+                <td>From 6–7KG</td>
+                <td>$415</td>
+                <td>4–5 Weeks</td>
+            </tr>
+            <tr>
+                <td>From 7–8KG</td>
+                <td>$465</td>
+                <td>4–5 Weeks</td>
+            </tr>
+            <tr>
+                <td>From 2–3KG</td>
+                <td>$195</td>
+                <td>4–5 Weeks</td>
+            </tr>
+            <tr>
+                <td>From 3–4KG</td>
+                <td>$250</td>
+                <td>4–5 Weeks</td>
+            </tr>
+            <tr>
+                <td>From 4–5KG</td>
+                <td>$300</td>
+                <td>4–5 Weeks</td>
+            </tr>
+            <tr>
+                <td>From 5–6KG</td>
+                <td>$355</td>
+                <td>4–5 Weeks</td>
+            </tr>
+            <tr>
+                <td>From 6–7KG</td>
+                <td>$415</td>
+                <td>4–5 Weeks</td>
+            </tr>
+            <tr>
+                <td>From 7–8KG</td>
+                <td>$465</td>
+                <td>4–5 Weeks</td>
+            </tr>
+            <tr>
+                <td>From 8–9KG</td>
+                <td>$515</td>
+                <td>4–5 Weeks</td>
+            </tr>
+            <tr>
+                <td>From 9–10KG</td>
+                <td>$565</td>
+                <td>4–5 Weeks</td>
+            </tr>
+            <tr>
+                <td>From 10–11KG</td>
+                <td>$610</td>
+                <td>4–5 Weeks</td>
+            </tr>
+            <tr>
+                <td>From 11–12KG</td>
+                <td>$655</td>
+                <td>4–5 Weeks</td>
+            </tr>
+            <tr>
+                <td>From 12–13KG</td>
+                <td>$705</td>
+                <td>4–5 Weeks</td>
+            </tr>
+            <tr>
+                <td>From 13–14KG</td>
+                <td>$750</td>
+                <td>4–5 Weeks</td>
+            </tr>
+            <tr>
+                <td>From 14–15KG</td>
+                <td>$795</td>
+                <td>4–5 Weeks</td>
+            </tr>
+            <tr>
+                <td>From 15–16KG</td>
+                <td>$840</td>
+                <td>4–5 Weeks</td>
+            </tr>
+            <tr>
+                <td>From 16–17KG</td>
+                <td>$885</td><td>4–5 Weeks</td>
+            </tr>
+            <tr>
+                <td>From 17–18KG</td>
+                <td>$930</td>
+                <td>4–5 Weeks</td>
+            </tr>
+            <tr>
+                <td>From 18–19KG</td>
+                <td>$970</td>
+                <td>4–5 Weeks</td>
+            </tr>
+            <tr>
+                <td>From 19–20KG</td>
+                <td>$1020</td>
+                <td>4–5 Weeks</td>
+            </tr>
+            <tr>
+                <td>From 20–25KG</td>
+                <td>$1225</td>
+                <td>4–5 Weeks</td>
+            </tr>
+            <tr>
+                <td>documents under 500g</td>
+                <td>$110</td>
+                <td>3 Weeks</td>
+            </tr>
+        </tbody>
+    </table>
+
+
+    <section class="addtional-cost">
+      <div class = "cost-card insurance-cost">
+        <h1>Cost for insurance and Release of parcel</h1>
+        <p>The cost of insurance and release of the parcel is %20 of the total value of the parcels</p>
+      </div>
+      <div class = "cost-card medication-cost">
+        <h1>Cost for medications and makeups</h1>
+        <p>For each bottle or pacaking of medication and vitamin, there will be an additional cost of $6. <br> 
+        There is also a $6 charge for each cosmetic and makeup items</p>
+      </div>
+      <div class ="cost-card electronic-cost">
+        <h1>Cost for each Phone, or laptop</h1>
+        <p>For each cellular deive or Laptop, there is an additional cost of $60</p>
+      </div>
+      <div class="notice">
+        <h2> The pricing may slightly vary depending on the size of these special-items</h2>
+      </div>
+    </section>
+
+<footer class="footer-content">
+    <div class="social-links">
+        <a href="https://www.instagram.com/p/DY8IT-4Go0_/" target="_blank">
+            <img src="{{ url_for('static', filename='instagram.png') }}" alt="instagram-link">
+        </a>
+
+        <a href="https://www.facebook.com/p/Southern-Cross-Beam-Pty-Ltd-61577005209085/" target="_blank">
+            <img src="{{ url_for('static', filename='facebook.png') }}" alt="facebook-link">
+        </a>
+    </div>
+
+    <p>© 2026 SCB Pty Ltd.</p>
+</footer>
+</body>
+</html>

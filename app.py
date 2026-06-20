@@ -3,6 +3,7 @@ from flask import Flask, render_template, request
 app = Flask(__name__)
 
 @app.route('/', methods=['GET', 'POST'])
+
 def home():
     result = None
 
@@ -11,7 +12,7 @@ def home():
         receiver = receiver_info(request.form)
         quote = quote_info(request.form)
 
-        save_enquiry(sender, receiver, quote)
+      
 
         result = quote["total_price"]
     
@@ -21,23 +22,23 @@ def home():
 
 
 def sender_info (form):
-   return {"name": form["sender_name", ""], "phone":form["sender_phone", ""],  "email": form ["sender_email",""]}
+   return {"name": form.get("sender_name", ""), "phone":form.get("sender_phone", ""),  "email": form.get("sender_email","")}
 
   
 
 def receiver_info(form):
-    return {"name": form["receiver_name", ""], "phone":form["receiver_phone", ""],  "email": form ["receiver_email", ""], "Address":["receiver_address", ""]}
+    return {"name": form.get("receiver_name", ""), "phone":form.get("receiver_phone", ""),  "email": form.get("receiver_email", ""), "Address":form.get("receiver_address", "")}
 
 
 
 
 
 def quote_info(form):
-    weight = float(form["weight"])
-    value = float(form["value"])
-    medications = int(form["medications"])
-    electronics = int(form["electronics"])
-    makeup = int(form["makeup"])
+    weight = float(form.get("weight", 0))
+    value = float(form.get("value", 0))
+    medications = int(form.get("medications", 0))
+    electronics = int(form.get("electronics", 0))
+    makeup = int(form.get("makeups", 0))
 
     weight_price = calculate_weight_price(weight)
     insurance_price = calculate_insurance(value)
@@ -100,8 +101,31 @@ def calculate_total_price(weight_price, insurance_price, medication_price, elect
    
 
 
+@app.route("/about")
+def about():
+    return render_template("Aboutus.html")
+
+
+@app.route("/contact")
+def contact():
+    return render_template("contactus.html")
+
+
+@app.route("/enquiries")
+def enquiries():
+    return render_template("enquiries.html")
+
+
+@app.route("/info")
+def info():
+    return render_template("info.html")
+
+
+
+
+
 if __name__ == "__main__":
-    app.run(debug=True)
+   app.run(debug=True, port=5000)
 
 
 
