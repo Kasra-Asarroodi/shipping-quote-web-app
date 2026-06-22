@@ -25,44 +25,54 @@
     <div class="enquiryprogress" >
     <form method="POST" id="quote-info" >
         <fieldset>
-            <legend> Information on your parcel </legend>
+            <legend> Information on your parcel (In order to get an idea of the pricing please visit our price information page) </legend>
             <label>Weight:</label>
-            <input type = "number" name="weight" id="weight" required>
+            <input type = "number" name="weight" id="weight" >
             <label> Total value of the parcels:</label>
-            <input type = "number" name="value" id="value" required>
+            <input type = "number" name="value" id="value" >
             <label> Number of medications:</label>
-            <input type = "number" name="medications" id= "medications" required>
-            <label> Number of makeup products:</lable>
-            <input type = "number" name="makeups" id = "makeups" required>
+            <input type = "number" name="medications" id= "medications" >
+            <label> Number of makeup products:</label>
+            <input type = "number" name="makeups" id = "makeups" >
             <label>number of Laptops or cellular devices:</label>
-            <input type = "number" name="electronics" id="electronics" required>
+            <input type = "number" name="electronics" id="electronics" >
             <button type = "reset" class="reset-btn"> Reset</button>
         </fieldset>
         <fieldset>
             <button type="button" onclick="openSenderPopup()" >Add your details</button>
             <button type="button" onclick="openReceiverPopup()">Add receiver details</button>
-            <div id="senderPopup">
+         <div id="senderPopup">
             <button type="button" class="close-btn" onclick="closeSenderPopup()">x</button>
-            <input name="sender_name" id="sendername"placeholder="Sender name">
-            <input name="sender_phone" id="senderphone" placeholder="Sender phone">
-            <input name="sender_email" id = "senderemail" placeholder="Sender email">
+            <label>First and Last name:</label>
+            <input name="sender_name" id="sendername"placeholder="Sender name" >
+            <label>Your phone number:</label>
+            <input name="sender_phone" id="senderphone" placeholder="Sender phone" >
+            <label>Your Email</label>
+            <input name="sender_email" id = "senderemail" placeholder="Sender email" >
+            <button type="button" class = "ok-btn" onclick ="closeSenderPopup()">Submit</button>
           </div>
           <div id="receiverPopup">
             <button type="button" class= "close-btn" onclick="closeReceiverPopup()">x</button>
-            <input name="receiver_name" id= "receivername" placeholder="Receiver name">
-            <input name="receiver_phone" id= "receiverphone" placeholder="Receiver phone">
-            <input name ="receiver_email" id = "receiveremail" placeholder = "Receiver email">
-            <input name="receiver_address" id = "receiveraddress" placeholder="Receiver address">
-            </div>
-            <button type="submit" class="submit-btn">Calculate</button>
-            <button type="submit" class="submit-btn">Submit enquiry:</button>
+            <Label>Enter the receiver's first and last name</Label>
+            <input name="receiver_name" id= "receivername" placeholder="Receiver name" >
+            <Label>Enter the receiver's phone number</Label>
+            <input name="receiver_phone" id= "receiverphone" placeholder="Receiver phone" >
+            <Label> Enter the receiver's email address</Label>
+            <input name ="receiver_email" id = "receiveremail" placeholder = "Receiver email" >
+            <Lable>Receivers City of residency</Lable>
+            <input name="receiver_address" id = "receiveraddress" placeholder="Receiver address" >
+            <button type="button" class = "ok-btn" onclick ="closeReceiverPopup()">Submit</button>
+          </div>
+            <div class="error-messages" id= "error-messages"></div>
+            <button type="submit" class="submit-btn">Calculate and Submit enquiry</button>
+            
 
             {% if result is not none %}
               <div class="quote-result">
                    Estimated price: ${{ result }}
               </div>
             {% endif %}
-            <div class="error-messages" id= "error-messages"></div>
+           
         </fieldset>
 </form>
 

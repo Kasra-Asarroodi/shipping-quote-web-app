@@ -1,4 +1,7 @@
-from flask import Flask, render_template, request
+from flask import Flask, render_template, request, redirect, url_for
+
+import os 
+import json
 
 app = Flask(__name__)
 
@@ -11,23 +14,29 @@ def home():
         sender = sender_info(request.form)
         receiver = receiver_info(request.form)
         quote = quote_info(request.form)
-
       
+        save_enquiry(sender, receiver, quote)
+        
 
         result = quote["total_price"]
-    
+        
     return render_template('index.html', result=result)
 
 
 
 
 def sender_info (form):
-   return {"name": form.get("sender_name", ""), "phone":form.get("sender_phone", ""),  "email": form.get("sender_email","")}
+   return {"name": form.get("sender_name", ""),
+           "phone":form.get("sender_phone", ""),  
+           "email": form.get("sender_email","")}
 
   
 
 def receiver_info(form):
-    return {"name": form.get("receiver_name", ""), "phone":form.get("receiver_phone", ""),  "email": form.get("receiver_email", ""), "Address":form.get("receiver_address", "")}
+    return {"name": form.get("receiver_name", ""), 
+            "phone":form.get("receiver_phone", ""), 
+            "email": form.get("receiver_email", ""), 
+            "Address":form.get("receiver_address", "")}
 
 
 
@@ -98,7 +107,32 @@ def calculate_makeup_price(makeup):
 def calculate_total_price(weight_price, insurance_price, medication_price, electronics_price, makeup_price):
     return weight_price + insurance_price + medication_price + electronics_price + makeup_price
    
-   
+ENQUIRY_FILE = "enquiries.json"
+
+def save_enquiry(sender_info, receiver_info, quote_info):
+    enquiry = {
+        "sender": sender_info,
+        "receiver": receiver_info,
+        "quote_information": quote_info
+    }
+
+    enquiries= load_enquiries()
+    enquiries.append(enquiry)
+
+    with open(ENQUIRY_FILE, "w") as file:
+        json.dump(enquiries, file, indent=4)
+
+
+
+
+def load_enquiries():
+    if os.path.exists(ENQUIRY_FILE):
+        with open(ENQUIRY_FILE, "r") as file:
+            return json.load(file)
+    return []
+
+
+
 
 
 @app.route("/about")
@@ -111,14 +145,28 @@ def contact():
     return render_template("contactus.html")
 
 
-@app.route("/enquiries")
+@app.route("/enquiries", methods = ["GET", "POST"])
 def enquiries():
-    return render_template("enquiries.html")
+    matching_enquiries =[]
+
+    if request.method == "POST":
+        entered_email = request.form.get("email")
+
+        all_enquiries = load_enquiries()
+
+        for enquiry in all_enquiries:
+            sender_email = enquiry["sender"]["email"]
+            if sender_email == entered_email:
+                matching_enquiries.append(enquiry)
+        
+
+    return render_template("enquiries.html", enquiries=matching_enquiries)
 
 
 @app.route("/info")
 def info():
     return render_template("info.html")
+
 
 
 

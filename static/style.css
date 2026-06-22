@@ -172,6 +172,26 @@ button:hover {
 .close-btn:hover{
     background-color:brown
 }
+
+
+
+.ok-btn {
+    width: 100%;
+    margin-top: 14px;
+    padding: 12px;
+    border: none;
+    border-radius: 8px;
+    background: #1d2a3a;
+    color: rgb(0, 135, 18);
+    font-weight: 700;
+    cursor: pointer;
+}
+
+.ok-btn:hover {
+    background: #094f27;
+}
+
+
 /* 
    About us page
    structure for the about us page
@@ -179,7 +199,7 @@ button:hover {
 
 .about-container{
     display: flex;
-    align-items: center;      /* vertically centers image and text */
+    align-items: center;     
     justify-content: center;  /* centers the whole section */
     gap: 40px;
     max-width: 1200px;
@@ -461,4 +481,132 @@ button:hover {
     margin: 0;
     color: #78350f;
     line-height: 1.6;
+}
+
+
+/* Login-page
+User can find their previous enquiries by putting down the matching email.
+ */
+
+
+.login-overlay {
+    width: 100%;
+    min-height: 45vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background: #eef2f6;
+    padding: 60px 20px;
+}
+
+.login-overlay form {
+    background: white;
+    width: 380px;
+    padding: 45px 40px;
+    border-radius: 14px;
+    box-shadow: 0 12px 35px rgba(0, 0, 0, 0.12);
+    text-align: center;
+}
+
+.login-overlay label {
+    display: block;
+    margin-bottom: 18px;
+    font-size: 26px;
+    font-weight: 700;
+    color: #1d2a3a;
+}
+
+.login-overlay input {
+    width: 100%;
+    padding: 15px 16px;
+    margin-bottom: 22px;
+    border: 1px solid #d4d9df;
+    border-radius: 8px;
+    background: #f3f5f7;
+    font-size: 15px;
+    outline: none;
+}
+
+.login-overlay input:focus {
+    border-color: #1d2a3a;
+    background: white;
+}
+
+.login-overlay button {
+    width: 100%;
+    padding: 15px;
+    border: none;
+    border-radius: 8px;
+    background: #1d2a3a;
+    color: white;
+    font-size: 15px;
+    font-weight: 700;
+    cursor: pointer;
+}
+
+.login-overlay button:hover {
+    background: #2d3f55;
+}
+
+/* Enquiry-page
+How the user is presented with their previous enquiries
+ */
+
+.enquiries-section {
+    width: 80%;
+    margin: 60px auto;
+}
+
+.enquiries-section h2 {
+    text-align: center;
+    color: #1d2a3a;
+    font-size: 32px;
+    margin-bottom: 30px;
+}
+
+.enquiry-card {
+    background: #ffffff;
+    border-radius: 14px;
+    padding: 28px;
+    margin-bottom: 25px;
+    box-shadow: 0 8px 25px rgba(0, 0, 0, 0.08);
+    border-left: 6px solid #1d2a3a;
+}
+
+.card-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    border-bottom: 1px solid #e5e7eb;
+    padding-bottom: 16px;
+    margin-bottom: 20px;
+}
+
+.card-header h3 {
+    color: #1d2a3a;
+    font-size: 24px;
+}
+
+.card-header span {
+    background: #1d2a3a;
+    color: white;
+    padding: 10px 18px;
+    border-radius: 8px;
+    font-weight: 700;
+}
+
+.enquiry-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 25px;
+}
+
+.enquiry-grid h4 {
+    color: #1d2a3a;
+    margin-bottom: 10px;
+}
+
+.enquiry-grid p {
+    color: #333;
+    margin-bottom: 8px;
 }

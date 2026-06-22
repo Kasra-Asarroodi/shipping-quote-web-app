@@ -82,7 +82,7 @@ if (quoteInfo) {
 
     const senderNAME = document.getElementById("sendername").value;
     const senderPHONE = document.getElementById("senderphone").value;
-    const senderADDRESS = document.getElementById("senderaddress").value;
+    const senderEMAIL = document.getElementById("senderemail").value;
 
     const receiverNAME = document.getElementById("receivername").value;
     const receiverPHONE = document.getElementById("receiverphone").value;
@@ -119,8 +119,8 @@ if (quoteInfo) {
       errors.push ("Please ensure to enter your phone number!");
     }
 
-    if (senderADDRESS === "") {
-      errors.push ("Please ensure to enter your Address!");
+    if (senderEMAIL === "") {
+      errors.push ("Please ensure to enter your email!");
     }
    
     if (senderPHONE === "") {
@@ -162,7 +162,6 @@ if (quoteInfo) {
 
 
 
-
 function openSenderPopup() {
     document.getElementById("senderPopup").style.display = "block";
 }
@@ -177,4 +176,16 @@ function openReceiverPopup() {
 
 function closeReceiverPopup() {
     document.getElementById("receiverPopup").style.display = "none";
+}
+
+
+
+
+
+function openPopup() {
+    document.getElementById("loginOverlay").style.display = "flex";
+}
+
+function closePopup() {
+    document.getElementById("loginOverlay").style.display = "none";
 }

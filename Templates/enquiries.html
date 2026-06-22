@@ -21,6 +21,62 @@
 
    </nav>
 </header>
+{% if not enquiries %}
+    <title>Enquiries</title>
+<div class="login-overlay" id="loginOverlay">
+ <form method="POST" action="{{ url_for('enquiries') }}">
+     <label for="email">Find your previous enquiries by entering the email you used whilst submitting your enquiry!:</label>
+
+     <input 
+        type="email" 
+        placeholder="Enter your email" 
+        id="email" 
+        name="email" 
+        required
+     >
+
+     <button type="submit">View Enquiries</button>
+ </form>
+</div>
+{% endif %}
+
+{% if enquiries %}
+<section class="enquiries-section">
+    <h2>Your Previous Enquiries</h2>
+
+    {% for enquiry in enquiries %}
+    <div class="enquiry-card">
+        <div class="card-header">
+            <h3>Quote {{ loop.index }}</h3>
+            <span>${{ enquiry.quote_information.total_price }}</span>
+        </div>
+
+        <div class="enquiry-grid">
+            <div>
+                <h4>Sender</h4>
+                <p><strong>Name:</strong> {{ enquiry.sender.name }}</p>
+                <p><strong>Email:</strong> {{ enquiry.sender.email }}</p>
+            </div>
+
+            <div>
+                <h4>Receiver</h4>
+                <p><strong>Name:</strong> {{ enquiry.receiver.name }}</p>
+                <p><strong>Email:</strong> {{ enquiry.receiver.email }}</p>
+            </div>
+
+            <div>
+                <h4>Parcel</h4>
+                <p><strong>Weight:</strong> {{ enquiry.quote_information.weight }} kg</p>
+                <p><strong>Insurance:</strong> ${{ enquiry.quote_information.insurance_price }}</p>
+            </div>
+        </div>
+    </div>
+    {% endfor %}
+</section>
+{% endif %}
+
+</body>
+
 <footer class="footer-content">
     <div class="social-links">
         <a href="https://www.instagram.com/p/DY8IT-4Go0_/" target="_blank">
