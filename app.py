@@ -1,9 +1,12 @@
 from flask import Flask, render_template, request, redirect, url_for
+from flask import session, redirect
 
 import os 
 import json
 
 app = Flask(__name__)
+
+app.secret_key = "temporary_secret_key"
 
 @app.route('/', methods=['GET', 'POST'])
 
@@ -110,13 +113,16 @@ def calculate_total_price(weight_price, insurance_price, medication_price, elect
 ENQUIRY_FILE = "enquiries.json"
 
 def save_enquiry(sender_info, receiver_info, quote_info):
+    enquiries= load_enquiries()
     enquiry = {
         "sender": sender_info,
         "receiver": receiver_info,
-        "quote_information": quote_info
+        "quote_information": quote_info,
+        "status" : "new",
+        "id" : len(enquiries) +1
     }
 
-    enquiries= load_enquiries()
+    
     enquiries.append(enquiry)
 
     with open(ENQUIRY_FILE, "w") as file:
@@ -130,7 +136,6 @@ def load_enquiries():
         with open(ENQUIRY_FILE, "r") as file:
             return json.load(file)
     return []
-
 
 
 
@@ -167,6 +172,50 @@ def enquiries():
 def info():
     return render_template("info.html")
 
+@app.route("/admin", methods = ["GET", "POST"])
+def admin_login():
+
+    if request.method == "POST":
+       admin_password = request.form["password"]
+
+       if admin_password == "KimiaKasra1071" :
+           session ["admin_logged_in"] = True
+           return redirect ("/admin/dashboard")
+           
+    return render_template("admin_login.html")
+
+
+
+@app.route("/admin/dashboard", methods = ["GET", "POST"])
+def admin_dashboard():
+    if not session.get("admin_logged_in"):
+        return redirect("/admin")
+    all_enquiries = load_enquiries()
+
+    return render_template("admin.html", enquiries= all_enquiries)
+
+
+
+@app.route("/update_status/<int:enquiry_id>", methods=["POST"])
+def update_status(enquiry_id):
+
+    if not session.get ("admin_logged_in"):
+        return redirect("/admin")
+    
+    new_status = request.form.get("status")
+
+    enquiries = load_enquiries()
+
+    for enquiry in enquiries:
+        if enquiry["id"] == enquiry_id:
+            enquiry["status"] = new_status
+            break
+
+    with open(ENQUIRY_FILE, "w") as file:
+        json.dump(enquiries, file, indent=4)
+
+    return redirect("/admin/dashboard")
+    
 
 
 

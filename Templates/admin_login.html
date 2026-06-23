@@ -1,0 +1,54 @@
+<head>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+    <script src="{{ url_for('static', filename='script.js') }}" defer></script>
+    <title> Freight and Packaging (SCB) </title>
+</head>
+<body>
+  <header>
+  
+    <nav class="navbar">
+
+    <h1 class="logo">PACK & SEND UNLEY</h1>
+
+    <ul class="nav-links">
+       <li><a href="{{ url_for('home') }}">Calculation</a></li>
+       <li><a href="{{ url_for('about') }}">About Us</a></li>
+       <li><a href="{{ url_for('contact') }}">Contact Us</a></li>
+       <li><a href="{{ url_for('enquiries') }}">Your Enquiries</a></li>
+       <li><a href="{{ url_for('info') }}">Price info</a></li>
+   </ul>
+
+   </nav>
+</header>
+
+<title>Enquiries</title>
+<div class="login-overlay" id="loginOverlay">
+ <form method="POST" action="{{ url_for('enquiries') }}">
+     <label for="email">Enter your password to gain access to all enquiries:</label>
+
+     <input 
+        type="email" 
+        placeholder="Enter your password" 
+        id="password" 
+        name="password" 
+        required
+     >
+
+     <button type="submit">View Enquiries</button>
+ </form>
+</div>
+<footer class="footer-content">
+    <div class="social-links">
+        <a href="https://www.instagram.com/p/DY8IT-4Go0_/" target="_blank">
+            <img src="{{ url_for('static', filename='instagram.png') }}" alt="instagram-link">
+        </a>
+
+        <a href="https://www.facebook.com/p/Southern-Cross-Beam-Pty-Ltd-61577005209085/" target="_blank">
+            <img src="{{ url_for('static', filename='facebook.png') }}" alt="facebook-link">
+        </a>
+    </div>
+
+    <p>© 2026 SCB Pty Ltd.</p>
+</footer>
+</body>
+</html>

@@ -610,3 +610,33 @@ How the user is presented with their previous enquiries
     color: #333;
     margin-bottom: 8px;
 }
+
+
+
+/* 
+   Admin page
+   This block updates the colouring of the status on each quote
+*/
+
+
+.status-badge {
+    display: inline-block;
+    padding: 6px 12px;
+    border-radius: 20px;
+    font-weight: bold;
+}
+
+.status-badge.new {
+    background-color: #fff3cd;
+    color: #856404;
+}
+
+.status-badge.contacted {
+    background-color: #cce5ff;
+    color: #004085;
+}
+
+.status-badge.booked {
+    background-color: #d4edda;
+    color: #155724;
+}

@@ -1,4 +1,4 @@
-<html lang = "en">
+html lang = "en">
 <head>
     <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
     <script src="{{ url_for('static', filename='script.js') }}" defer></script>
@@ -29,9 +29,9 @@
 
      <input 
         type="email" 
-        placeholder="Enter your email" 
-        id="email" 
-        name="email" 
+        placeholder="Enter your password" 
+        id="password" 
+        name="password" 
         required
      >
 
@@ -42,7 +42,7 @@
 
 {% if enquiries %}
 <section class="enquiries-section">
-    <h2>Your Previous Enquiries</h2>
+    <h2>Enquiries made</h2>
 
     {% for enquiry in enquiries %}
     <div class="enquiry-card">
@@ -70,9 +70,22 @@
                 <p><strong>Insurance:</strong> ${{ enquiry.quote_information.insurance_price }}</p>
             </div>
             <div>
-                <h4>Status of your quote:</h4>
-                <p><strong>{{ enquiry.status }}</strong></p>
-            </div>
+    <h4>Status of quote:</h4>
+
+    <p class="status-badge {{ enquiry.status|lower }}">
+        {{ enquiry.status }}
+    </p>
+
+    <form action="/update_status/{{ enquiry.id }}" method="POST">
+        <select name="status">
+            <option value="New" {% if enquiry.status == "New" %}selected{% endif %}>New</option>
+            <option value="Contacted" {% if enquiry.status == "Contacted" %}selected{% endif %}>Contacted</option>
+            <option value="Booked" {% if enquiry.status == "Booked" %}selected{% endif %}>Booked</option>
+        </select>
+
+        <button type="submit">Update</button>
+    </form>
+</div>
         </div>
     </div>
     {% endfor %}
