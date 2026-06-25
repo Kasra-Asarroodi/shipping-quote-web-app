@@ -9,7 +9,7 @@ html lang = "en">
   
     <nav class="navbar">
 
-    <h1 class="logo">PACK & SEND UNLEY</h1>
+    <h1 class="logo">Freight and packaging</h1>
 
     <ul class="nav-links">
        <li><a href="{{ url_for('home') }}">Calculation</a></li>
@@ -21,24 +21,8 @@ html lang = "en">
 
    </nav>
 </header>
-{% if not enquiries %}
-    <title>Enquiries</title>
-<div class="login-overlay" id="loginOverlay">
- <form method="POST" action="{{ url_for('enquiries') }}">
-     <label for="email">Find your previous enquiries by entering the email you used whilst submitting your enquiry!:</label>
 
-     <input 
-        type="email" 
-        placeholder="Enter your password" 
-        id="password" 
-        name="password" 
-        required
-     >
 
-     <button type="submit">View Enquiries</button>
- </form>
-</div>
-{% endif %}
 
 {% if enquiries %}
 <section class="enquiries-section">
@@ -82,15 +66,23 @@ html lang = "en">
             <option value="Contacted" {% if enquiry.status == "Contacted" %}selected{% endif %}>Contacted</option>
             <option value="Booked" {% if enquiry.status == "Booked" %}selected{% endif %}>Booked</option>
         </select>
-
-        <button type="submit">Update</button>
     </form>
-</div>
+
+    
+
         </div>
     </div>
     {% endfor %}
 </section>
 {% endif %}
+
+
+<form class = "promo-box" method="POST">
+     <label>Was there any promo offers yoou would like to consider for the estimated prices?</label>
+       <input class="promo-rate" name="promo" id="promo-rate" type="text">
+        <button type="submit">Update</button>
+    </form>
+    
 
 </body>
 

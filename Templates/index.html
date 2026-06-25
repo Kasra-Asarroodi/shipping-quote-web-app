@@ -18,6 +18,7 @@
        <li><a href="{{ url_for('contact') }}">Contact Us</a></li>
        <li><a href="{{ url_for('enquiries') }}">Your Enquiries</a></li>
        <li><a href="{{ url_for('info') }}">Price info</a></li>
+       <li><a href="{{ url_for('info') }}">Admin portal</a></li>
     </ul>
 
    </nav>
@@ -25,7 +26,8 @@
     <div class="enquiryprogress" >
     <form method="POST" id="quote-info" >
         <fieldset>
-            <legend> Information on your parcel (In order to get an idea of the pricing please visit our price information page) </legend>
+            <legend> Information on your parcel </legend>
+              <p> order to get an idea of the pricing please visit our price information page </p>
             <label>Weight:</label>
             <input type = "number" name="weight" id="weight" >
             <label> Total value of the parcels:</label>
@@ -39,8 +41,8 @@
             <button type = "reset" class="reset-btn"> Reset</button>
         </fieldset>
         <fieldset>
-            <button type="button" onclick="openSenderPopup()" >Add your details</button>
-            <button type="button" onclick="openReceiverPopup()">Add receiver details</button>
+            <button type="button" onclick="openSenderPopup()" >Add your details (optional) </button>
+            <button type="button" onclick="openReceiverPopup()">Add receiver details (optionl)</button>
          <div id="senderPopup">
             <button type="button" class="close-btn" onclick="closeSenderPopup()">x</button>
             <label>First and Last name:</label>
@@ -59,12 +61,15 @@
             <input name="receiver_phone" id= "receiverphone" placeholder="Receiver phone" >
             <Label> Enter the receiver's email address</Label>
             <input name ="receiver_email" id = "receiveremail" placeholder = "Receiver email" >
-            <Lable>Receivers City of residency</Lable>
+            <Label>Receivers City of residency</Label>
             <input name="receiver_address" id = "receiveraddress" placeholder="Receiver address" >
             <button type="button" class = "ok-btn" onclick ="closeReceiverPopup()">Submit</button>
           </div>
             <div class="error-messages" id= "error-messages"></div>
-            <button type="submit" class="submit-btn">Calculate and Submit enquiry</button>
+
+            <button type="submit" class="calculate-btn" name = "action" value="calulate">calculate estimate price</button>
+            
+            <button type="submit" class="submit-btn" name = "action" value="submit">Submit enquiry</button>
             
 
             {% if result is not none %}

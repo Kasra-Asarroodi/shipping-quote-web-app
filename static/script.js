@@ -128,14 +128,30 @@ if (quoteInfo) {
     }
 
 
-     if (receiverPHONE === "") {
-      errors.push ("Please ensure to enter a phone number for the receiver!");
+    if (receiverPHONE !== "") {
+         if (isNAN(receiverPHONE)){
+            errors.push ("Please ensure to enter a valid phone number!");
+         }
     }
 
-     if (receiverNAME === "") {
-      errors.push ("Please ensure to enter a name for the receiver!");
-    }
+    if (receiverNAME !== "") {
 
+        if (
+           receiverNAME.includes("0") ||
+           receiverNAME.includes("1") ||
+           receiverNAME.includes("2") ||
+           receiverNAME.includes("3") ||
+           receiverNAME.includes("4") ||
+           receiverNAME.includes("5") ||
+           receiverNAME.includes("6") ||
+           receiverNAME.includes("7") ||
+           receiverNAME.includes("8") ||
+           receiverNAME.includes("9")
+        ) {
+           errors.push("Receiver name cannot contain numbers");
+        }
+}
+     
     if (receiverEMAIL === "") {
       errors.push ("Please enter an email for the receiver");
     }

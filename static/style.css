@@ -28,7 +28,7 @@
     text-decoration:none;
     color:white;
 
-    font-size:1.3rem;     
+    font: size 1.1rem;     
     font-weight:600;
 
     padding:12px 18px;
@@ -639,4 +639,30 @@ How the user is presented with their previous enquiries
 .status-badge.booked {
     background-color: #d4edda;
     color: #155724;
+}
+
+
+
+
+/* 
+   Admin page
+   A box which allows pack and send to add promo rate to future quotes.
+*/
+
+.promo-box {
+    margin-top: 15px;
+}
+
+.promo-rate {
+    width: 70px;
+    padding: 8px;
+    border: 1px solid #888;
+    border-radius: 5px;
+    font-size: 14px;
+    text-align: center;
+}
+
+.promo-box button {
+    padding: 8px 12px;
+    margin-left: 5px;
 }

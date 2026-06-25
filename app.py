@@ -14,14 +14,17 @@ def home():
     result = None
 
     if request.method == 'POST':
+
+        action = request.form.get("action")
         sender = sender_info(request.form)
         receiver = receiver_info(request.form)
         quote = quote_info(request.form)
       
-        save_enquiry(sender, receiver, quote)
-        
 
         result = quote["total_price"]
+
+        if action == "submit":
+            save_enquiry(sender, receiver, quote)
         
     return render_template('index.html', result=result)
 
@@ -51,7 +54,7 @@ def quote_info(form):
     medications = int(form.get("medications", 0))
     electronics = int(form.get("electronics", 0))
     makeup = int(form.get("makeups", 0))
-
+    promo = int(form.get("promo",0)) 
     weight_price = calculate_weight_price(weight)
     insurance_price = calculate_insurance(value)
     medication_price = calculate_medication_price(medications)
@@ -65,6 +68,8 @@ def quote_info(form):
         electronics_price,
         makeup_price
     )
+
+    total_price = apply_promo_discount(total_price, promo)
 
     return {
         "weight": weight,
@@ -108,9 +113,18 @@ def calculate_makeup_price(makeup):
    return makeup * 6
 
 def calculate_total_price(weight_price, insurance_price, medication_price, electronics_price, makeup_price):
-    return weight_price + insurance_price + medication_price + electronics_price + makeup_price
+
+   return weight_price + insurance_price + medication_price + electronics_price + makeup_price
+
+def apply_promo_discount(total_price, promo):
+    return total_price * ( 100 - promo) / 100
+
+
+
    
 ENQUIRY_FILE = "enquiries.json"
+
+SETTING_FILE = "setting.json"
 
 def save_enquiry(sender_info, receiver_info, quote_info):
     enquiries= load_enquiries()
@@ -131,6 +145,7 @@ def save_enquiry(sender_info, receiver_info, quote_info):
 
 
 
+
 def load_enquiries():
     if os.path.exists(ENQUIRY_FILE):
         with open(ENQUIRY_FILE, "r") as file:
@@ -138,7 +153,38 @@ def load_enquiries():
     return []
 
 
+def save_setting():
+  with open(SETTING_FILE, "w") as file:
+        json.dump(enquiries, file, indent=4)
 
+  
+    
+
+
+def update_promo():
+    if not session.get("admin_logged_in"):
+        return redirect ("/admin")
+    setting = load_settings()
+    setting["promo"] = int(request.get.form ("promo, 0"))
+    save_setting(setting)
+
+    return redirect("/admin/dashboard")
+    
+
+
+
+
+def load_settings():
+    if os.path.exists(SETTING_FILE):
+        return {"promo" : 0}
+    with open(SETTING_FILE, "r") as file:
+         return json.load(file) 
+    
+
+
+    
+
+        
 
 @app.route("/about")
 def about():
