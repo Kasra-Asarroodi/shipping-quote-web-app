@@ -152,14 +152,9 @@ if (quoteInfo) {
         }
 }
      
-    if (receiverEMAIL === "") {
-      errors.push ("Please enter an email for the receiver");
-    }
+
   
 
-      if (receiverADDRESS === "") {
-      errors.push ("Please enter an Address for the receiver");
-    }
 
 
     if (errors.length > 0) {

@@ -1,4 +1,4 @@
-html lang = "en">
+
 <head>
     <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
     <script src="{{ url_for('static', filename='script.js') }}" defer></script>
@@ -17,6 +17,7 @@ html lang = "en">
        <li><a href="{{ url_for('contact') }}">Contact Us</a></li>
        <li><a href="{{ url_for('enquiries') }}">Your Enquiries</a></li>
        <li><a href="{{ url_for('info') }}">Price info</a></li>
+       <li><a href="{{ url_for('admin_login') }}">Admin portal</a></li>
    </ul>
 
    </nav>
@@ -65,6 +66,7 @@ html lang = "en">
             <option value="New" {% if enquiry.status == "New" %}selected{% endif %}>New</option>
             <option value="Contacted" {% if enquiry.status == "Contacted" %}selected{% endif %}>Contacted</option>
             <option value="Booked" {% if enquiry.status == "Booked" %}selected{% endif %}>Booked</option>
+            <button type ="submit">Update</button>
         </select>
     </form>
 
@@ -78,7 +80,7 @@ html lang = "en">
 
 
 <form class = "promo-box" method="POST">
-     <label>Was there any promo offers yoou would like to consider for the estimated prices?</label>
+     <label>Was there any promo offers you would like to consider for the estimated prices?</label>
        <input class="promo-rate" name="promo" id="promo-rate" type="text">
         <button type="submit">Update</button>
     </form>

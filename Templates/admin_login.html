@@ -16,6 +16,7 @@
        <li><a href="{{ url_for('contact') }}">Contact Us</a></li>
        <li><a href="{{ url_for('enquiries') }}">Your Enquiries</a></li>
        <li><a href="{{ url_for('info') }}">Price info</a></li>
+       <li><a href="{{ url_for('admin_login') }}">Admin portal</a></li>
    </ul>
 
    </nav>
@@ -23,11 +24,11 @@
 
 <title>Enquiries</title>
 <div class="login-overlay" id="loginOverlay">
- <form method="POST" action="{{ url_for('enquiries') }}">
+ <form method="POST" action="{{ url_for('admin_login') }}">
      <label for="email">Enter your password to gain access to all enquiries:</label>
 
      <input 
-        type="email" 
+        type="text" 
         placeholder="Enter your password" 
         id="password" 
         name="password" 

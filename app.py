@@ -12,9 +12,9 @@ app.secret_key = "temporary_secret_key"
 
 def home():
     result = None
-
+    form_data = {}
     if request.method == 'POST':
-
+        form_data = request.form
         action = request.form.get("action")
         sender = sender_info(request.form)
         receiver = receiver_info(request.form)
@@ -26,7 +26,7 @@ def home():
         if action == "submit":
             save_enquiry(sender, receiver, quote)
         
-    return render_template('index.html', result=result)
+    return render_template('index.html', result=result, form_data = form_data)
 
 
 

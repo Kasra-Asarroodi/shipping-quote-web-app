@@ -1,3 +1,27 @@
 [
-    
+    {
+        "sender": {
+            "name": "kasra",
+            "phone": "1111111111",
+            "email": "k@gmail.com"
+        },
+        "receiver": {
+            "name": "",
+            "phone": "",
+            "email": "k@gmail.com",
+            "Address": "90"
+        },
+        "quote_information": {
+            "weight": 50.0,
+            "value": 50.0,
+            "medications": 5,
+            "electronics": 30,
+            "makeup": 10,
+            "weight_price": 0,
+            "insurance_price": 10.0,
+            "total_price": 1900.0
+        },
+        "status": "new",
+        "id": 1
+    }
 ]
