@@ -61,12 +61,12 @@
         {{ enquiry.status }}
     </p>
 
-    <form action="/update_status/{{ enquiry.id }}" method="POST">
-        <select name="status">
+    <form action="/update_status/{{ enquiry.id }}" method="POST" class = "status-form">
+        <select name="status" class="status-select">
             <option value="New" {% if enquiry.status == "New" %}selected{% endif %}>New</option>
             <option value="Contacted" {% if enquiry.status == "Contacted" %}selected{% endif %}>Contacted</option>
             <option value="Booked" {% if enquiry.status == "Booked" %}selected{% endif %}>Booked</option>
-            <button type ="submit">Update</button>
+            <button type ="submit" class="submit-btn">Update</button>
         </select>
     </form>
 
@@ -81,8 +81,10 @@
 
 <form class = "promo-box" method="POST">
      <label>Was there any promo offers you would like to consider for the estimated prices?</label>
-       <input class="promo-rate" name="promo" id="promo-rate" type="text">
+       <input class="promo-rate" name="promo" id="promo-rate" type="text" value = "{{ promo_rate }}">
         <button type="submit">Update</button>
+        <h5 class ="promo-header">Current Promo rate: {{ enquiry.promo }} % </h5>
+           
     </form>
     
 

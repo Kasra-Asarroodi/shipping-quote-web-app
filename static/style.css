@@ -666,3 +666,46 @@ How the user is presented with their previous enquiries
     padding: 8px 12px;
     margin-left: 5px;
 }
+
+
+
+
+/* 
+   Admin page
+   A How the dropdown menu to change the status of the status in admin page is presented. 
+*/
+
+.status-form,
+.promo-control {
+  display: flex;
+  gap: 10px;
+  align-items: center;
+  margin-top: 10px;
+}
+
+.status-select,
+.promo-rate {
+  padding: 10px 12px;
+  border: 1px solid #d0d7de;
+  border-radius: 8px;
+  font-size: 14px;
+  background: white;
+}
+
+.status-btn,
+.promo-control button {
+  padding: 10px 16px;
+  border: none;
+  border-radius: 8px;
+  background: #005baa;
+  color: white;
+  font-weight: 600;
+  cursor: pointer;
+}
+
+.status-btn:hover,
+.promo-control button:hover {
+  background: #004080;
+}
+
+

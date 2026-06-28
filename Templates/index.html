@@ -29,15 +29,15 @@
             <legend> Information on your parcel </legend>
               <p> order to get an idea of the pricing please visit our price information page </p>
             <label>Weight (KG)</label>
-            <input type = "number" name="weight" id="weight" >
+            <input type = "number" name="weight" id="weight"  value="{{ form_data.get('weight', '') }}">
             <label> Total value of the parcels (AUD)</label>
-            <input type = "number" name="value" id="value" >
+            <input type = "number" name="value" id="value" value="{{ form_data.get('value', '') }}">
             <label> Number of medications:</label>
-            <input type = "number" name="medications" id= "medications" >
+            <input type = "number" name="medications" id= "medications" value="{{ form_data.get('medications', '') }}">
             <label> Number of makeup products:</label>
-            <input type = "number" name="makeups" id = "makeups" >
+            <input type = "number" name="makeups" id = "makeups" value="{{ form_data.get('makeups', '') }}">
             <label>number of Laptops or cellular devices:</label>
-            <input type = "number" name="electronics" id="electronics" >
+            <input type = "number" name="electronics" id="electronics" value="{{ form_data.get('electronics', '') }}">
             <button type = "reset" class="reset-btn"> Reset</button>
         </fieldset>
         <fieldset>
@@ -47,34 +47,34 @@
             <button type="button" class="close-btn" onclick="closeSenderPopup()">x</button>
             <label>First and Last name:</label>
             <input name="sender_name" id="sendername"placeholder="Sender name" 
-             value="{{ form_data.get('sender_name', '') }}">>
+             value="{{ form_data.get('sender_name', '') }}">
             <label>Your phone number:</label>
             <input name="sender_phone" id="senderphone" placeholder="Sender phone"  
-             value="{{ form_data.get('sender_phone', '') }}">>
+             value="{{ form_data.get('sender_phone', '') }}">
             <label>Your Email</label>
             <input name="sender_email" id = "senderemail" placeholder="Sender email"   
-             value="{{ form_data.get('sender_email', '') }}">>
+             value="{{ form_data.get('sender_email', '') }}">
             <button type="button" class = "ok-btn" onclick ="closeSenderPopup()">Submit</button>
           </div>
           <div id="receiverPopup">
             <button type="button" class= "close-btn" onclick="closeReceiverPopup()">x</button>
             <Label>Enter the receiver's first and last name</Label>
             <input name="receiver_name" id= "receivername" placeholder="Receiver name" 
-             value="{{ form_data.get('receiver_name', '') }}"> >
+             value="{{ form_data.get('receiver_name', '') }}"> 
             <Label>Enter the receiver's phone number</Label>
             <input name="receiver_phone" id= "receiverphone" placeholder="Receiver phone" 
-             value="{{ form_data.get('receiver_phone', '') }}">>
+             value="{{ form_data.get('receiver_phone', '') }}">
             <Label> Enter the receiver's email address</Label>
             <input name ="receiver_email" id = "receiveremail" placeholder = "Receiver email"  
-             value="{{ form_data.get('receiver_email', '') }}"> >
+             value="{{ form_data.get('receiver_email', '') }}"> 
             <Label>Receivers City of residency</Label>
             <input name="receiver_address" id = "receiveraddress" placeholder="Receiver address"  
-             value="{{ form_data.get('receiver_address', '') }}"> >
+             value="{{ form_data.get('receiver_address', '') }}"> 
             <button type="button" class = "ok-btn" onclick ="closeReceiverPopup()">Submit</button>
           </div>
             <div class="error-messages" id= "error-messages"></div>
 
-            <button type="submit" class="calculate-btn" name = "action" value="calulate">calculate estimate price</button>
+            <button type="submit" class="calculate-btn" name = "action" value="calculate">calculate estimate price</button>
             
             <button type="submit" class="submit-btn" name = "action" value="submit">Submit enquiry</button>
             

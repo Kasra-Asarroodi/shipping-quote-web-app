@@ -23,5 +23,80 @@
         },
         "status": "new",
         "id": 1
+    },
+    {
+        "sender": {
+            "name": "kasra",
+            "phone": "0000000000",
+            "email": "k@gmail.com"
+        },
+        "receiver": {
+            "name": "",
+            "phone": "",
+            "email": "",
+            "Address": ""
+        },
+        "quote_information": {
+            "weight": 19.0,
+            "value": 20.0,
+            "medications": 90,
+            "electronics": 80,
+            "makeup": 70,
+            "weight_price": 970,
+            "insurance_price": 4.0,
+            "total_price": 6734.0
+        },
+        "status": "new",
+        "id": 2
+    },
+    {
+        "sender": {
+            "name": "kasra",
+            "phone": "0000000000",
+            "email": "k@gmail.com"
+        },
+        "receiver": {
+            "name": "",
+            "phone": "",
+            "email": "",
+            "Address": ""
+        },
+        "quote_information": {
+            "weight": 19.0,
+            "value": 20.0,
+            "medications": 90,
+            "electronics": 80,
+            "makeup": 70,
+            "weight_price": 970,
+            "insurance_price": 4.0,
+            "total_price": 6734.0
+        },
+        "status": "new",
+        "id": 3
+    },
+    {
+        "sender": {
+            "name": "kas",
+            "phone": "asaarroodi",
+            "email": "k@gmail.com"
+        },
+        "receiver": {
+            "name": "",
+            "phone": "",
+            "email": "",
+            "Address": ""
+        },
+        "quote_information": {
+            "weight": 5.0,
+            "value": 10.0,
+            "medications": 15,
+            "electronics": 30,
+            "makeup": 20,
+            "weight_price": 300,
+            "insurance_price": 2.0,
+            "total_price": 2312.0
+        },
+        "status": "new",
+        "id": 4
     }
 ]
