@@ -5,6 +5,14 @@
     <title> Freight and Packaging (SCB) </title>
 </head>
 <body>
+
+ {% with messages = get_flashed_messages() %}
+       {% if messages %}
+         <div class = "noenquiry-message">
+           {{ messages [0] }}
+         </div>
+       {% endif %}
+  {% endwith %}
   <header>
   
     <nav class="navbar">
@@ -41,6 +49,8 @@
 </div>
 {% endif %}
 
+
+
 {% if enquiries %}
 <section class="enquiries-section">
     <h2>Your Previous Enquiries</h2>
@@ -72,7 +82,9 @@
             </div>
             <div>
                 <h4>Status of your quote:</h4>
-                <p><strong>{{ enquiry.status }}</strong></p>
+                <p class="status-badge {{ enquiry.status }}">
+                  {{ enquiry.status }}
+                </p>
             </div>
         </div>
     </div>

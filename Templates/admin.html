@@ -54,39 +54,38 @@
                 <p><strong>Weight:</strong> {{ enquiry.quote_information.weight }} kg</p>
                 <p><strong>Insurance:</strong> ${{ enquiry.quote_information.insurance_price }}</p>
             </div>
-            <div>
-    <h4>Status of quote:</h4>
-
-    <p class="status-badge {{ enquiry.status|lower }}">
-        {{ enquiry.status }}
-    </p>
-
-    <form action="/update_status/{{ enquiry.id }}" method="POST" class = "status-form">
-        <select name="status" class="status-select">
-            <option value="New" {% if enquiry.status == "New" %}selected{% endif %}>New</option>
-            <option value="Contacted" {% if enquiry.status == "Contacted" %}selected{% endif %}>Contacted</option>
-            <option value="Booked" {% if enquiry.status == "Booked" %}selected{% endif %}>Booked</option>
-            <button type ="submit" class="submit-btn">Update</button>
-        </select>
-    </form>
-
     
+            <div>
+                <h4>Status of your quote:</h4>
+                <p class="status-badge {{ enquiry.status|lower }}">
+                  {{ enquiry.status }}
+                </p>
+            </div>
 
-        </div>
+        <form action="/update_status/{{ enquiry.id }}" method="POST" class = "status-form">
+            <select name="status" class="status-select">
+                <option value="New" {% if enquiry.status == "New" %}selected{% endif %}>New</option>
+                <option value="Contacted" {% if enquiry.status == "Contacted" %}selected{% endif %}>Contacted</option>
+                <option value="Booked" {% if enquiry.status == "Booked" %}selected{% endif %}>Booked</option>
+            </select>
+             <button type ="submit" class="submit-btn">Update</button>
+        </form>    
     </div>
+</div>
     {% endfor %}
 </section>
 {% endif %}
 
 
-<form class = "promo-box" method="POST">
+    <form class = "promo-box" method="POST" action="/update_promo" id="promorate">
      <label>Was there any promo offers you would like to consider for the estimated prices?</label>
        <input class="promo-rate" name="promo" id="promo-rate" type="text" value = "{{ promo_rate }}">
         <button type="submit">Update</button>
-        <h5 class ="promo-header">Current Promo rate: {{ enquiry.promo }} % </h5>
+        <h5 class ="promo-header">Current Promo rate: {{ promo_rate}}% </h5>
            
     </form>
-    
+    <div class="error-promo" id= "error-promo"></div>
+
 
 </body>
 

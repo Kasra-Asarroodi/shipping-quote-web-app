@@ -58,6 +58,25 @@ renderAnimals(filtered);
  }
 
 
+const errorPromo = document.getElementById ("error-promo");
+const promoForm = document.getElementById ("promorate");
+const promoRate = document.getElementById("promo-rate");
+
+if (promoRate && promoForm) {
+  promoForm.addEventListener('submit', (e) => {
+    let errors = [];
+    const promoValue = Number(promoRate.value);
+    if (promoValue > 100 || promoValue < 0 || Number.isNaN(promoValue)) {
+        errors.push("Promotion discount must be between 0 to 100%");
+    }
+  
+    if (errors.length > 0) {
+          e.preventDefault();
+          errorPromo.style.display = "block";
+  
+    }
+  });
+}
 
 
 
@@ -121,10 +140,6 @@ if (quoteInfo) {
 
     if (senderEMAIL === "") {
       errors.push ("Please ensure to enter your email!");
-    }
-   
-    if (senderPHONE === "") {
-      errors.push ("Please ensure to enter your phone number!");
     }
 
 
@@ -200,3 +215,16 @@ function openPopup() {
 function closePopup() {
     document.getElementById("loginOverlay").style.display = "none";
 }
+
+
+
+
+
+
+setTimeout(function () {
+  const popup = document.getElementById("popupMessage");
+
+  if (popup) {
+    popup.style.display = "none";
+  }
+}, 3000);

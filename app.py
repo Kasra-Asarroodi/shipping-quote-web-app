@@ -1,4 +1,4 @@
-from flask import Flask, render_template, request, redirect, url_for
+from flask import Flask, render_template, request, redirect, url_for, flash
 from flask import session, redirect
 
 import os 
@@ -19,6 +19,7 @@ def home():
         sender = sender_info(request.form)
         receiver = receiver_info(request.form)
         quote = quote_info(request.form)
+        promo = request.form.get("promo")
       
 
         result = quote["total_price"]
@@ -26,15 +27,16 @@ def home():
 
         if action == "calculate": 
              form_data = request.form
-
+             
 
 
         if action == "submit":
-            save_enquiry(sender, receiver, quote)
+            save_enquiry(sender, receiver, quote, promo)
+            flash("Your enquiry has been submitted successfully!")
 
+            
         
     return render_template('index.html', result=result, form_data = form_data)
-
 
 
 
@@ -61,7 +63,11 @@ def quote_info(form):
     medications = int(form.get("medications", 0))
     electronics = int(form.get("electronics", 0))
     makeup = int(form.get("makeups", 0))
-    promo = int(form.get("promo",0)) 
+     
+
+    settings = load_settings()
+    promo = settings["promo"]
+
     weight_price = calculate_weight_price(weight)
     insurance_price = calculate_insurance(value)
     medication_price = calculate_medication_price(medications)
@@ -86,7 +92,8 @@ def quote_info(form):
         "makeup": makeup,
         "weight_price": weight_price,
         "insurance_price": insurance_price,
-        "total_price": total_price
+        "total_price": total_price,
+        "promo": promo
     }
 
 
@@ -133,7 +140,7 @@ ENQUIRY_FILE = "enquiries.json"
 
 SETTING_FILE = "setting.json"
 
-def save_enquiry(sender_info, receiver_info, quote_info,promo):
+def save_enquiry(sender_info, receiver_info, quote_info, promo):
     enquiries= load_enquiries()
     enquiry = {
         "sender": sender_info,
@@ -161,38 +168,41 @@ def load_enquiries():
     return []
 
 
-def save_setting():
-  with open(SETTING_FILE, "w") as file:
-        json.dump(enquiries, file, indent=4)
+
+def load_settings():
+    if not os.path.exists(SETTING_FILE):
+        return {"promo" : 0}
+    with open(SETTING_FILE, "r") as setfile:
+         return json.load(setfile) 
+    
+
+
+def save_setting(setting):
+  
+  with open(SETTING_FILE, "w") as setfile:
+        json.dump(setting, setfile, indent=4)
 
   
     
 
-
+@app.route("/update_promo", methods=["POST"])
 def update_promo():
     if not session.get("admin_logged_in"):
         return redirect ("/admin")
+    
+    promo_value = int(request.form.get("promo"))
+    
+    if promo_value is None or promo_value == "":
+        promo_value = 0
+    
     setting = load_settings()
-    setting["promo"] = int(request.get.form ("promo, 0"))
+    
+    setting["promo"] = int(promo_value)
     save_setting(setting)
 
     return redirect("/admin/dashboard")
     
 
-
-
-
-def load_settings():
-    if os.path.exists(SETTING_FILE):
-        return {"promo" : 0}
-    with open(SETTING_FILE, "r") as file:
-         return json.load(file) 
-    
-
-
-    
-
-        
 
 @app.route("/about")
 def about():
@@ -217,6 +227,10 @@ def enquiries():
             sender_email = enquiry["sender"]["email"]
             if sender_email == entered_email:
                 matching_enquiries.append(enquiry)
+
+        if not matching_enquiries:
+            flash("There is not matching enquiries with this email!")
+            return render_template("enquiries.html", enquiries= None)
         
 
     return render_template("enquiries.html", enquiries=matching_enquiries)
@@ -245,8 +259,9 @@ def admin_dashboard():
     if not session.get("admin_logged_in"):
         return redirect("/admin")
     all_enquiries = load_enquiries()
+    settings = load_settings()
 
-    return render_template("admin.html", enquiries= all_enquiries)
+    return render_template("admin.html", enquiries= all_enquiries, promo_rate = settings["promo"])
 
 
 
