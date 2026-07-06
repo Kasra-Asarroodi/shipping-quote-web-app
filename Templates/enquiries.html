@@ -17,7 +17,7 @@
   
     <nav class="navbar">
 
-    <h1 class="logo">PACK & SEND UNLEY</h1>
+    <h1 class="logo">Freight and packaging</h1>
 
     <ul class="nav-links">
        <li><a href="{{ url_for('home') }}">Calculation</a></li>
@@ -25,7 +25,6 @@
        <li><a href="{{ url_for('contact') }}">Contact Us</a></li>
        <li><a href="{{ url_for('enquiries') }}">Your Enquiries</a></li>
        <li><a href="{{ url_for('info') }}">Price info</a></li>
-       <li><a href="{{ url_for('admin_login') }}">Admin portal</a></li>
    </ul>
 
    </nav>
@@ -59,26 +58,26 @@
     <div class="enquiry-card">
         <div class="card-header">
             <h3>Quote {{ loop.index }}</h3>
-            <span>${{ enquiry.quote_information.total_price }}</span>
+            <span>${{ enquiry.total_price }}</span>
         </div>
 
         <div class="enquiry-grid">
             <div>
                 <h4>Sender</h4>
-                <p><strong>Name:</strong> {{ enquiry.sender.name }}</p>
-                <p><strong>Email:</strong> {{ enquiry.sender.email }}</p>
+                <p><strong>Name:</strong> {{ enquiry.sender_name }}</p>
+                <p><strong>Email:</strong> {{ enquiry.sender_email }}</p>
             </div>
 
             <div>
                 <h4>Receiver</h4>
-                <p><strong>Name:</strong> {{ enquiry.receiver.name }}</p>
-                <p><strong>Email:</strong> {{ enquiry.receiver.email }}</p>
+                <p><strong>Name:</strong> {{ enquiry.receiver_name }}</p>
+                <p><strong>Email:</strong> {{ enquiry.receiver_email }}</p>
             </div>
 
             <div>
                 <h4>Parcel</h4>
-                <p><strong>Weight:</strong> {{ enquiry.quote_information.weight }} kg</p>
-                <p><strong>Insurance:</strong> ${{ enquiry.quote_information.insurance_price }}</p>
+                <p><strong>Weight:</strong> {{ enquiry.weight }} kg</p>
+                <p><strong>Insurance:</strong> ${{ enquiry.insurance_price }}</p>
             </div>
             <div>
                 <h4>Status of your quote:</h4>

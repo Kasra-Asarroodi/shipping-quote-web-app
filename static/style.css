@@ -123,11 +123,11 @@ button {
 }
 
 .submit-btn {
-background-color:rgb(53, 122, 99)
+background-color:rgb(83, 193, 96)
 }
 
 .submit-btn:hover{
-    background-color: darkgreen;
+    background-color: rgb(44, 155, 44);
 }
 
 

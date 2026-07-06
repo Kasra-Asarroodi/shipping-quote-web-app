@@ -6,7 +6,7 @@ import json
 
 app = Flask(__name__)
 
-app.secret_key = "temporary_secret_key"
+app.secret_key = "Beograd1071@"
 
 @app.route('/', methods=['GET', 'POST'])
 
@@ -51,7 +51,7 @@ def receiver_info(form):
     return {"name": form.get("receiver_name", ""), 
             "phone":form.get("receiver_phone", ""), 
             "email": form.get("receiver_email", ""), 
-            "Address":form.get("receiver_address", "")}
+            "address":form.get("receiver_address", "")}
 
 
 
@@ -136,36 +136,10 @@ def apply_promo_discount(total_price, promo):
 
 
    
-ENQUIRY_FILE = "enquiries.json"
+
 
 SETTING_FILE = "setting.json"
 
-def save_enquiry(sender_info, receiver_info, quote_info, promo):
-    enquiries= load_enquiries()
-    enquiry = {
-        "sender": sender_info,
-        "receiver": receiver_info,
-        "quote_information": quote_info,
-        "status" : "new",
-        "id" : len(enquiries) +1,
-        "promo" : promo
-    }
-
-    
-    enquiries.append(enquiry)
-
-    with open(ENQUIRY_FILE, "w") as file:
-        json.dump(enquiries, file, indent=4)
-
-
-
-
-
-def load_enquiries():
-    if os.path.exists(ENQUIRY_FILE):
-        with open(ENQUIRY_FILE, "r") as file:
-            return json.load(file)
-    return []
 
 
 
@@ -224,8 +198,8 @@ def enquiries():
         all_enquiries = load_enquiries()
 
         for enquiry in all_enquiries:
-            sender_email = enquiry["sender"]["email"]
-            if sender_email == entered_email:
+            sender_email = enquiry["sender_email"]
+            if sender_email.lower() == entered_email.lower():
                 matching_enquiries.append(enquiry)
 
         if not matching_enquiries:
@@ -265,59 +239,138 @@ def admin_dashboard():
 
 
 
+
+
+DB_FILE = "enquiries.db"
+
+#creating a connection to the SQlite database
+def get_connection():
+    return sqlite3.connect(DB_FILE)
+
+#creating the enquiry table
+def create_enquiry_table():
+    connection = get_connection()
+
+    query = """
+    CREATE TABLE IF NOT EXISTS enquiries (
+        id INTEGER PRIMARY KEY AUTOINCREMENT,
+
+        sender_name TEXT,
+        sender_email TEXT,
+        sender_phone TEXT,
+        
+
+        receiver_name TEXT,
+        receiver_email TEXT,
+        receiver_phone TEXT,
+        receiver_address TEXT,
+
+        insuranca_price INTEGER,
+
+        weight INTEGER,
+        value INTEGER,
+        medications INTEGER,
+        makeups INTEGER, 
+        electronics INTEGER,
+
+
+        total_price REAL,
+        promo INTEGER,
+        status TEXT DEFAULT 'new'
+    );
+    """
+
+    connection.execute(query)
+    connection.commit()
+    connection.close()
+
+# saving enquiries
+def save_enquiry(sender_info, receiver_info, quote_info, promo):
+    connection = get_connection()
+
+    query = """
+    INSERT INTO enquiries (
+        sender_name, sender_email, sender_phone,
+        receiver_name, receiver_email, receiver_phone, receiver_address,
+        weight, value, medications, makeups, electronics, total_price, promo
+    )
+    VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)
+    """
+
+    values = (
+        sender_info["name"],
+        sender_info["email"],
+        sender_info["phone"],
+       
+
+        receiver_info["name"],
+        receiver_info["email"],
+        receiver_info["phone"],
+        receiver_info["address"],
+
+        quote_info["weight"],
+        quote_info["value"],
+        quote_info["medications"],
+        quote_info["makeup"],
+        quote_info["electronics"],
+       
+       quote_info["insurance_price"],
+
+        quote_info["total_price"],
+        promo
+
+        
+    )
+
+    connection.execute(query, values)
+    connection.commit()
+    connection.close()
+
+#Loading enquiries
+def load_enquiries():
+    connection = get_connection()
+    connection.row_factory = sqlite3.Row
+
+    query = """     
+    SELECT *
+    FROM enquiries
+    ORDER BY id DESC
+    """
+
+    rows = connection.execute(query).fetchall()
+    connection.close()
+
+    return [dict(row) for row in rows]
+
+
+
 @app.route("/update_status/<int:enquiry_id>", methods=["POST"])
 def update_status(enquiry_id):
-
-    if not session.get ("admin_logged_in"):
+    if not session.get("admin_logged_in"):
         return redirect("/admin")
-    
+
     new_status = request.form.get("status")
 
-    enquiries = load_enquiries()
+    connection = get_connection()
 
-    for enquiry in enquiries:
-        if enquiry["id"] == enquiry_id:
-            enquiry["status"] = new_status
-            break
+    query = """
+    UPDATE enquiries
+    SET status = ?
+    WHERE id = ?
+    """
 
-    with open(ENQUIRY_FILE, "w") as file:
-        json.dump(enquiries, file, indent=4)
+    connection.execute(query, (new_status, enquiry_id))
+    connection.commit()
+    connection.close()
 
     return redirect("/admin/dashboard")
-    
-
-
-
-def get_connection(enquiries):
-    try:
-        return sqlite3.connect(enquiries)
-    except Exception as e:
-        print(f"error:{e}")
-        raise
-
-
-
-def create_table(connection):
-    query = """
-    CREATE TABLE IF NOT EXISTS users(
-        id INTEGER PRIMARY KEY,
-        name TEXT NOT NULL,
-        age INTEGER,
-        email TEXT
-    )
-    """
-    try:
-        with connection:
-            connection.execute(query)
-        print ("table was createed")
-    except Exception as e:
-        print (e)
 
 
 
 
 
 if __name__ == "__main__":
+   create_enquiry_table()
    app.run(debug=True, port=5001)
 
 
