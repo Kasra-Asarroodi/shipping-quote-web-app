@@ -1,7 +1,7 @@
 from flask import Flask, render_template, request, redirect, url_for, flash
 from flask import session, redirect
-
-import os 
+import sqlite3
+import os   
 import json
 
 app = Flask(__name__)
@@ -285,6 +285,33 @@ def update_status(enquiry_id):
 
     return redirect("/admin/dashboard")
     
+
+
+
+def get_connection(enquiries):
+    try:
+        return sqlite3.connect(enquiries)
+    except Exception as e:
+        print(f"error:{e}")
+        raise
+
+
+
+def create_table(connection):
+    query = """
+    CREATE TABLE IF NOT EXISTS users(
+        id INTEGER PRIMARY KEY,
+        name TEXT NOT NULL,
+        age INTEGER,
+        email TEXT
+    )
+    """
+    try:
+        with connection:
+            connection.execute(query)
+        print ("table was createed")
+    except Exception as e:
+        print (e)
 
 
 
