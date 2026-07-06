@@ -367,11 +367,11 @@ def update_status(enquiry_id):
 
 
 
-
+create_enquiry_table()
 
 if __name__ == "__main__":
-   create_enquiry_table()
-   app.run(debug=True, port=5001)
+
+   app.run(debug=True)
 
 
 
