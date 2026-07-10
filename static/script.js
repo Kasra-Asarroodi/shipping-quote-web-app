@@ -109,23 +109,23 @@ if (quoteInfo) {
     const receiverADDRESS = document.getElementById("receiveraddress").value;
 
 
-    if (weight === "" || weight <= 0) {
-        errors.push("Weight must be greater than 0.");
+    if (weight === "" || weight > 25) {
+        errors.push("Weight must be greater than 0 and less than 25kg");
     }
 
     if (value === "" || value <= 0) {
         errors.push("Total value must be greater than 0.");
     }
 
-    if (medications === "" || medications < 0) {
+    if (medications < 0) {
         errors.push("Number of medications cannot be negative.");
     }
 
-    if (makeups === "" || makeups < 0) {
+    if ( makeups < 0) {
         errors.push("Number of makeup products cannot be negative.");
     }
 
-    if (electronics === "" || electronics < 0) {
+    if ( electronics < 0) {
         errors.push("Number of laptops or cellular devices cannot be negative.");
     }
 

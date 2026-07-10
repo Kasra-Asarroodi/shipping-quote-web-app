@@ -181,14 +181,14 @@ button:hover {
     padding: 12px;
     border: none;
     border-radius: 8px;
-    background: #1d2a3a;
-    color: rgb(0, 135, 18);
+    background: #65cd70;
+    color: rgb(255, 255, 255);
     font-weight: 700;
     cursor: pointer;
 }
 
 .ok-btn:hover {
-    background: #094f27;
+    background: #2caf65;
 }
 
 
@@ -623,6 +623,19 @@ How the user is presented with their previous enquiries
     gap: 25px;
 }
 
+
+.enquiry-grid form:last-child {
+    grid-column: 3;
+    justify-self: end;
+    align-self: end;
+
+    background: transparent;
+    box-shadow: none;
+    padding: 0;
+    margin: 0;
+    width: auto;
+}
+
 .enquiry-grid h4 {
     color: #1d2a3a;
     margin-bottom: 10px;
@@ -702,12 +715,31 @@ How the user is presented with their previous enquiries
    A How the dropdown menu to change the status of the status in admin page is presented. 
 */
 
-.status-form,
+
 .promo-control {
   display: flex;
   gap: 10px;
   align-items: center;
   margin-top: 10px;
+}
+
+
+.status-form {
+    grid-column: 2;
+    grid-row: 2;
+
+    justify-self: start;
+    align-self: start;
+
+    display: flex;
+    align-items: center;
+    gap: 10px;
+
+    margin: 0;
+    padding: 0;
+    width: auto;
+    background: transparent;
+    box-shadow: none;
 }
 
 .status-select,
@@ -767,7 +799,12 @@ How the user is presented with their previous enquiries
 }
 
 
-
+.flash-close {
+    background: none;
+    border: none;
+    font-size: 20px;
+    cursor: pointer;
+}
 
 /* Responsive navbar fix */
 
@@ -871,3 +908,81 @@ How the user is presented with their previous enquiries
         width: 95%;
     }
 }
+
+
+
+
+
+
+@media (max-width: 768px) {
+
+    .enquiries-section {
+        width: 95%;
+    }
+
+    .enquiry-grid {
+        grid-template-columns: 1fr;
+        gap: 18px;
+    }
+
+    .status-form {
+        grid-column: 1;
+        grid-row: auto;
+
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 8px;
+    }
+
+    .enquiry-grid form:last-child {
+        grid-column: 1;
+        grid-row: auto;
+        justify-self: end;
+    }
+}
+
+
+
+
+
+
+@media (max-width: 768px) {
+    .status-form {
+        grid-column: 1;
+        grid-row: auto;
+
+        display: flex;
+        flex-direction: row;
+        align-items: center;
+        flex-wrap: wrap;
+        gap: 10px;
+    }
+
+    .status-form label {
+        width: 100%;
+    }
+}
+
+
+
+
+/* How the delete button is displayed to the admin and user when attempting to delete an enquiry */
+
+.delete-btn {
+    width: 100%;
+    margin-top: 14px;
+    padding: 12px;
+    border: none;
+    border-radius: 8px;
+    background: #d7461d;
+    color: rgb(255, 255, 255);
+    font-weight: 700;
+    cursor: pointer;
+    
+
+}
+
+.delete-btn:hover { 
+    background: #af352c;
+}
+

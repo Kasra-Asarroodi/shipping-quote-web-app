@@ -10,6 +10,9 @@
        {% if messages %}
          <div class = "noenquiry-message">
            {{ messages [0] }}
+           <button type="button" class="flash-close" onclick="this.parentElement.style.display='none'">
+            ×
+           </button>
          </div>
        {% endif %}
   {% endwith %}
@@ -57,7 +60,7 @@
     {% for enquiry in enquiries %}
     <div class="enquiry-card">
         <div class="card-header">
-            <h3>Quote {{ loop.index }}</h3>
+            <h3>Quote {{ loop.revindex }}</h3>
             <span>${{ enquiry.total_price }}</span>
         </div>
 
@@ -81,10 +84,15 @@
             </div>
             <div>
                 <h4>Status of your quote:</h4>
-                <p class="status-badge {{ enquiry.status }}">
+                <p class="status-badge {{ enquiry.status|lower }}">
                   {{ enquiry.status }}
                 </p>
             </div>
+          <form action="/delete_enquiry/{{ enquiry.id }}" method="POST">
+                <input type="hidden" name="redirect_to" value="enquiries">
+                <button type="submit" class="delete-btn">Delete</button>
+          </form>
+        
         </div>
     </div>
     {% endfor %}

@@ -1,12 +1,28 @@
-from flask import Flask, render_template, request, redirect, url_for, flash
-from flask import session, redirect
+from flask import Flask, render_template, request, redirect, url_for, flash, session, redirect
 import sqlite3
 import os   
 import json
 
+from dotenv import load_dotenv
+load_env()
+
 app = Flask(__name__)
 
-app.secret_key = "Beograd1071@"
+
+SECRET_KEY = os.environ.get("SECRET_KEY")
+ADMIN_PASSWORD = os.environ.get("ADMIN_PASSWORD")
+
+
+if not SECRET_KEY:
+    raise RuntimeError("SECRET_KEY is missing from the .env file")
+
+if not ADMIN_PASSWORD:
+    raise RuntimeError("ADMIN_PASSWORD is missing from the .env file")
+
+app.secret_key = SECRET_KEY
+
+
+
 
 @app.route('/', methods=['GET', 'POST'])
 
@@ -58,11 +74,12 @@ def receiver_info(form):
 
 
 def quote_info(form):
-    weight = float(form.get("weight", 0))
-    value = float(form.get("value", 0))
-    medications = int(form.get("medications", 0))
-    electronics = int(form.get("electronics", 0))
-    makeup = int(form.get("makeups", 0))
+    weight = float(form.get("weight")or 0)
+    value = float(form.get("value") or 0)
+    medications = int(form.get("medications") or 0)
+    electronics = int(form.get("electronics")or 0)
+    makeup = int(form.get("makeups", 0)or 0)
+    
      
 
     settings = load_settings()
@@ -74,7 +91,7 @@ def quote_info(form):
     electronics_price = calculate_electronic_price(electronics)
     makeup_price = calculate_makeup_price(makeup)
 
-    total_price = calculate_total_price(
+    total_preprice = calculate_total_price(
         weight_price,
         insurance_price,
         medication_price,
@@ -82,7 +99,7 @@ def quote_info(form):
         makeup_price
     )
 
-    total_price = apply_promo_discount(total_price, promo)
+    total_price = apply_promo_discount(total_preprice, promo)
 
     return {
         "weight": weight,
@@ -113,7 +130,9 @@ def calculate_weight_price(weight):
    
 def calculate_insurance(value):
     
-   return value / 5
+    return value / 5
+
+    
    
 
 
@@ -217,21 +236,35 @@ def info():
 @app.route("/admin", methods = ["GET", "POST"])
 def admin_login():
 
+
+    if session.get("admin_logged_in"):
+        return redirect(url_for("admin_dashboard"))
+
+
     if request.method == "POST":
        admin_password = request.form["password"]
 
-       if admin_password == "KimiaKasra1071" :
+       if admin_password == ADMIN_PASSWORD :
            session ["admin_logged_in"] = True
-           return redirect ("/admin/dashboard")
+           return redirect(url_for("admin_dashboard"))
+       
+       flash("incorrect password")
            
     return render_template("admin_login.html")
 
 
+@app.route("/admin/logout")
+def admin_logout():
+    session.pop("admin_logged_in", None)
+    flash("You have been logged out.")
+    return redirect(url_for("admin_login"))
 
-@app.route("/admin/dashboard", methods = ["GET", "POST"])
+
+
+@app.route("/admin/dashboard", methods = ["GET"])
 def admin_dashboard():
     if not session.get("admin_logged_in"):
-        return redirect("/admin")
+        return redirect(url_for("admin_dashboard"))
     all_enquiries = load_enquiries()
     settings = load_settings()
 
@@ -265,7 +298,7 @@ def create_enquiry_table():
         receiver_phone TEXT,
         receiver_address TEXT,
 
-        insuranca_price INTEGER,
+        insurance_price INTEGER,
 
         weight INTEGER,
         value INTEGER,
@@ -292,7 +325,7 @@ def save_enquiry(sender_info, receiver_info, quote_info, promo):
     INSERT INTO enquiries (
         sender_name, sender_email, sender_phone,
         receiver_name, receiver_email, receiver_phone, receiver_address,
-        weight, value, medications, makeups, electronics, total_price, promo
+        weight, value, medications, makeups, electronics, insurance_price, total_price, promo
     )
     VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)
     """
@@ -314,7 +347,7 @@ def save_enquiry(sender_info, receiver_info, quote_info, promo):
         quote_info["makeup"],
         quote_info["electronics"],
        
-       quote_info["insurance_price"],
+        quote_info["insurance_price"],
 
         quote_info["total_price"],
         promo
@@ -364,6 +397,41 @@ def update_status(enquiry_id):
     connection.close()
 
     return redirect("/admin/dashboard")
+
+
+
+
+
+
+
+def delete_enquiry(enquiry_id):
+    connection = get_connection()
+
+    connection.execute(
+        "DELETE FROM enquiries WHERE id = ?",
+        (enquiry_id,)
+    )
+
+    connection.commit()
+    connection.close()
+
+
+
+
+@app.route("/delete_enquiry/<int:enquiry_id>", methods=["POST"])
+def delete_enquiry_route(enquiry_id):
+    delete_enquiry(enquiry_id)
+    flash("Enquiry deleted successfully.")
+    
+    redirect_to = request.form.get("redirect_to")
+
+    if redirect_to == "admin":
+        return redirect(url_for("admin_dashboard"))
+    
+    return redirect(url_for("admin_dashboard"))
+    
+
+
 
 
 

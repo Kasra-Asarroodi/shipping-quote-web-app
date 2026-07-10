@@ -10,6 +10,9 @@
        {% if messages %}
          <div class = "popup-message">
            {{ messages [0] }}
+           <button type="button" class="flash-close" onclick="this.parentElement.style.display='none'">
+            ×
+           </button>
          </div>
         {% endif %}
 {% endwith %}
@@ -37,9 +40,9 @@
             <legend> Information on your parcel </legend>
               <p> order to get an idea of the pricing please visit our price information page </p>
             <label>Weight (KG)</label>
-            <input type = "number" name="weight" id="weight"  value="{{ form_data.get('weight', '') }}">
+            <input type = "number" name="weight" id="weight" min = "0" step = "any" value="{{ form_data.get('weight', '') }}">
             <label> Total value of the parcels (AUD)</label>
-            <input type = "number" name="value" id="value" value="{{ form_data.get('value', '') }}">
+            <input type = "number" name="value" id="value"  min = "0" step = "any" value="{{ form_data.get('value', '') }}">
             <label> Number of medications:</label>
             <input type = "number" name="medications" id= "medications" value="{{ form_data.get('medications', '') }}">
             <label> Number of makeup products:</label>

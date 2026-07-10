@@ -5,7 +5,20 @@
     <title> Freight and Packaging (SCB) </title>
 </head>
 <body>
-  <header>
+
+    {% with messages = get_flashed_messages() %}
+       {% if messages %}
+         <div class = "noenquiry-message">
+           {{ messages [0] }}
+           <button type="button" class="flash-close" onclick="this.parentElement.style.display='none'">
+             ×
+           </button>
+         </div>
+       {% endif %}
+    {% endwith %}
+  
+  
+    <header>
   
     <nav class="navbar">
 
@@ -17,6 +30,7 @@
        <li><a href="{{ url_for('contact') }}">Contact Us</a></li>
        <li><a href="{{ url_for('enquiries') }}">Your Enquiries</a></li>
        <li><a href="{{ url_for('info') }}">Price info</a></li>
+       <a href="{{ url_for('admin_logout') }}">Log out</a>
    </ul>
 
    </nav>
@@ -31,7 +45,7 @@
     {% for enquiry in enquiries %}
     <div class="enquiry-card">
         <div class="card-header">
-            <h3>Quote {{ loop.index }}</h3>
+            <h3>Quote {{ loop.revindex }}</h3>
             <span>${{ enquiry.total_price }}</span>
         </div>
 
@@ -61,14 +75,20 @@
                 </p>
             </div>
 
-        <form action="/update_status/{{ enquiry.id }}" method="POST" class = "status-form">
-            <select name="status" class="status-select">
-                <option value="New" {% if enquiry.status == "New" %}selected{% endif %}>New</option>
-                <option value="Contacted" {% if enquiry.status == "Contacted" %}selected{% endif %}>Contacted</option>
-                <option value="Booked" {% if enquiry.status == "Booked" %}selected{% endif %}>Booked</option>
-            </select>
-             <button type ="submit" class="submit-btn">Update</button>
-        </form>    
+           <form action="/update_status/{{ enquiry.id }}" method="POST" class = "status-form">
+               <label> Current status of this quote :</label>
+               <select name="status" class="status-select">
+                   <option value="New" {% if enquiry.status == "New" %}selected{% endif %}>New</option>
+                   <option value="Contacted" {% if enquiry.status == "Contacted" %}selected{% endif %}>Contacted</option>
+                   <option value="Booked" {% if enquiry.status == "Booked" %}selected{% endif %}>Booked</option>
+               </select>
+                <input type="hidden" name="redirect_to" value="admin">
+                <button type ="submit" class="submit-btn">Update</button>
+           </form> 
+        
+        <form action="/delete_enquiry/{{ enquiry.id }}" method="POST">
+          <button type="submit" class="delete-btn">Delete</button>
+        </form>
     </div>
 </div>
     {% endfor %}
