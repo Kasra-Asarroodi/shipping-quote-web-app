@@ -208,15 +208,6 @@ function closeReceiverPopup() {
 
 
 
-function openPopup() {
-    document.getElementById("loginOverlay").style.display = "flex";
-}
-
-function closePopup() {
-    document.getElementById("loginOverlay").style.display = "none";
-}
-
-
 
 
 

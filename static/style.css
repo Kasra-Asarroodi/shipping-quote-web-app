@@ -224,7 +224,7 @@ button:hover {
     background-color: white;
 
     box-shadow: 0 5px 15px rgba(0,0,0,0.15);
-    margin-top: 5px;
+    margin-top: 30px;
     position: relative;
     top: -60px;
 }
@@ -236,6 +236,7 @@ button:hover {
 
 .about-text p{
     line-height: 1.6;
+    margin-top: 25px;
 }
 
 /* 

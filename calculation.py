@@ -1,139 +1,107 @@
-import sqlite3
-
-#initialising database
-def get_connection(enquiries):
-    try:
-        return sqlite3.connect(enquiries)
-    except Exception as e:
-        print(f"error:{e}")
-        raise
+from settings import load_settings
 
 
+def sender_info (form):
+   return {"name": form.get("sender_name", ""),
+           "phone":form.get("sender_phone", ""),  
+           "email": form.get("sender_email","")}
 
-# creating a table in the database
-def create_table(connection):
-    query = """
-    CREATE TABLE IF NOT EXISTS users(
-        id INTEGER PRIMARY KEY,
-        name TEXT NOT NULL,
-        age INTEGER,
-        email TEXT
+  
+
+def receiver_info(form):
+    return {"name": form.get("receiver_name", ""), 
+            "phone":form.get("receiver_phone", ""), 
+            "email": form.get("receiver_email", ""), 
+            "address":form.get("receiver_address", "")}
+
+
+
+
+
+def quote_info(form):
+    weight = float(form.get("weight")or 0)
+    value = float(form.get("value") or 0)
+    medications = int(form.get("medications") or 0)
+    electronics = int(form.get("electronics")or 0)
+    makeup = int(form.get("makeups", 0)or 0)
+    
+     
+    settings = load_settings()
+   
+    promo = settings["promo"]
+    
+
+    weight_price = calculate_weight_price(weight)
+    insurance_price = calculate_insurance(value)
+    medication_price = calculate_medication_price(medications)
+    electronics_price = calculate_electronic_price(electronics)
+    makeup_price = calculate_makeup_price(makeup)
+
+    total_preprice = calculate_total_price(
+        weight_price,
+        insurance_price,
+        medication_price,
+        electronics_price,
+        makeup_price
     )
-    """
-    try:
-        with connection:
-            connection.execute(query)
-        print ("table was createed")
-    except Exception as e:
-        print (e)
+
+    total_price = apply_promo_discount(total_preprice, promo)
+
+    return {
+        "weight": weight,
+        "value": value,
+        "medications": medications,
+        "electronics": electronics,
+        "makeup": makeup,
+        "weight_price": weight_price,
+        "insurance_price": insurance_price,
+        "total_price": total_price,
+        "promo": promo
+    }
+
+
+
+
+
+
+
+
+
+def calculate_weight_price(weight):
+
+    weight_rates = [(1,90), (2, 140), (3, 195), (4, 250), (5, 300), 
+                    (6, 355), (7, 415), ( 8, 465), (9, 515), 
+                    (10, 565), (11, 610), (12, 655), (13, 705), (14, 750), (15, 795),
+                    (16, 840), (17, 885), (18, 930), (19, 970), (20, 1020),
+                    (25, 1225) ]
+    for max_weight, price in weight_rates:
+       if weight <= max_weight:
+           return price
+    return 0
+
 
    
-# Main function
-def main():
-    connection = get_connection("Enquiries.db")
-    try:
-        create_table(connection)
-        
-        x = int(input ("1, 2"))
-        while x != 2:
-             start = input("Enter option(Add, Delete, Update, Search, Add Many):").lower()
-             if start == 'add':
-                name = input("Name:")
-                age= int(input("Enter age:"))
-                email = input("Enter email: ")
-                insert_user(connection, name, age, email)
-             elif start == 'search':
-                print("ALL users:")
-                for user in fetch_user(connection):
-                    print(f"user:{user}")
-             elif start == 'delete':
-                 user_id= int(input("Enter User ID:"))
-                 delete_user(connection,user_id)
+def calculate_insurance(value):
+    
+    return value / 5
 
-             elif start == 'update':
-                 user_id = int(input("Enter user ID:"))
-                 new_email = input("Enter a new email:")
-                 update_user(connection, user_id, new_email)
-        
-
-             elif start == "add many":
-                 users = [("chan", 29, "friend@gmail.com"),
-                        ("truman", 27, "show@gmail.com"),
-                        ]
-                 insert_users(connection, users)
+    
+   
 
 
-    finally:
-        connection.close()
+def calculate_medication_price(medication):
+ return medication * 6
 
+def calculate_electronic_price(electronic):
+   return electronic * 60
 
+def calculate_makeup_price(makeup):
+   return makeup * 6
 
-#Add user ot the database
-def insert_user(connection, name:str, age:int, email:str):
-  query = "INSERT INTO users (name, age, email) VALUES (?,?,?)"
-  try:
-     with connection:
-            connection.execute(query, (name, age, email))
-     print (f"user {name} was added to the data base!")
+def calculate_total_price(weight_price, insurance_price, medication_price, electronics_price, makeup_price):
 
-  except Exception as e:
-      print(e)
+   return weight_price + insurance_price + medication_price + electronics_price + makeup_price
 
-# Query on all users in the database
-def fetch_user(connection, condition: str=None) -> list[tuple]:
+def apply_promo_discount(total_price, promo):
+    return total_price * ( 100 - promo) / 100
 
-    query = "SELECT * from users"
-    if condition:
-        query == f" WHERE {condition}"
-
-    try:
-        with connection:
-            rows = connection.execute(query).fetchall()
-        return rows
-    except Exception as e:
-        print(e)
-
-
-#Delete user from database
-def delete_user(connection, user_id: int):
-    query ="DELETE FROM users WHERE id =?"
-
-    try:
-      with connection:
-        connection.execute(query,(user_id,))
-      print(f"USER id {user_id} was deleted!")
-    except Exception as e:
-        print(e)
-
-
-#updating status of an existing user
-def update_user(connection, user_id:int, email:str):
-    query ="UPDATE users SET email =? WHERE id = ?"
-
-    try:
-        with connection:
-            connection.execute(query,(email,user_id))
-        print(f"USERID {user_id} has a new email of {email}")
-
-    except Exception as e:
-        print(e)
-
-
-#Adding multiple Users to the same table
-def insert_users(connection, users:list[tuple[str, int, str]]):
-    query = "INSERT INTO users (name, age, email) VALUES (?,?,?)"
-
-    try:
-        with connection:
-            connection.executemany(query, users)
-        print(f"len{users} were added to the database")
-    except Exception as e:
-        print(e)
-
-
-
-
-
-
-if __name__ == "__main__":
-    main()

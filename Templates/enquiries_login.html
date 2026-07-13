@@ -27,6 +27,7 @@
        <li><a href="{{ url_for('contact') }}">Contact Us</a></li>
        <li><a href="{{ url_for('enquiries') }}">Your Enquiries</a></li>
        <li><a href="{{ url_for('info') }}">Price info</a></li>
+       <a href="{{ url_for('enquiries_logout') }}">Exit enquiries</a>
    </ul>
 
    </nav>
@@ -35,21 +36,24 @@
 
 
 <title>Enquiries</title>
-<div class="login-overlay" id="loginOverlay">
- <form method="POST" action="{{ url_for('admin_login') }}">
-     <label for="email">Enter your password to gain access to all enquiries:</label>
+<div class="login-overlay">
+ <form method="POST" action="{{ url_for('enquiries') }}">
+     <label for="email">Find your previous enquiries by entering the email you used whilst submitting your enquiry!:</label>
 
      <input 
-        type="text" 
-        placeholder="Enter your password" 
-        id="password" 
-        name="password" 
+        type="email" 
+        placeholder="Enter your email" 
+        id="email" 
+        name="email" 
         required
      >
 
      <button type="submit">View Enquiries</button>
  </form>
 </div>
+
+
+
 <footer class="footer-content">
     <div class="social-links">
         <a href="https://www.instagram.com/p/DY8IT-4Go0_/" target="_blank">
