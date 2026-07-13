@@ -90,8 +90,15 @@ const errorMsgs = document.getElementById ("error-messages");
 
 if (quoteInfo) {
   quoteInfo.addEventListener('submit', (e) => {
+   
     let errors= [];
+
+    errorMsgs.style.display = "none";
+    errorMsgs.innerHTML = "";
+
   
+
+
   
     const weight = document.getElementById("weight").value;
     const makeups = document.getElementById("makeups").value;
@@ -143,25 +150,25 @@ if (quoteInfo) {
     }
 
 
-    if (receiverPHONE !== "") {
-         if (isNAN(receiverPHONE)){
+
+    if (isNaN(senderPHONE) || senderPHONE.length !== 10){
             errors.push ("Please ensure to enter a valid phone number!");
          }
-    }
+    
 
-    if (receiverNAME !== "") {
+    if (senderNAME !== "") {
 
         if (
-           receiverNAME.includes("0") ||
-           receiverNAME.includes("1") ||
-           receiverNAME.includes("2") ||
-           receiverNAME.includes("3") ||
-           receiverNAME.includes("4") ||
-           receiverNAME.includes("5") ||
-           receiverNAME.includes("6") ||
-           receiverNAME.includes("7") ||
-           receiverNAME.includes("8") ||
-           receiverNAME.includes("9")
+           senderNAME.includes("0") ||
+           senderNAME.includes("1") ||
+           senderNAME.includes("2") ||
+           senderNAME.includes("3") ||
+           senderNAME.includes("4") ||
+           senderNAME.includes("5") ||
+           senderNAME.includes("6") ||
+           senderNAME.includes("7") ||
+           senderNAME.includes("8") ||
+           senderNAME.includes("9")
         ) {
            errors.push("Receiver name cannot contain numbers");
         }
@@ -176,6 +183,7 @@ if (quoteInfo) {
         e.preventDefault();
         errorMsgs.style.display = "block";
         errorMsgs.innerHTML = errors.join("<br>");
+        return;
     }
   });
 }

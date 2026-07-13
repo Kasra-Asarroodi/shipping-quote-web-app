@@ -28,6 +28,7 @@
        <li><a href="{{ url_for('contact') }}">Contact Us</a></li>
        <li><a href="{{ url_for('enquiries') }}">Your Enquiries</a></li>
        <li><a href="{{ url_for('info') }}">Price info</a></li>
+       <a href="{{ url_for('enquiries_logout') }}">Exit enquiries</a>
    </ul>
 
    </nav>
@@ -85,7 +86,7 @@
 
 <footer class="footer-content">
     <div class="social-links">
-        <a href="https://www.instagram.com/p/DY8IT-4Go0_/" target="_blank">
+        <a href="https://www.instagram.com/freightpackaging/" target="_blank">
             <img src="{{ url_for('static', filename='instagram.png') }}" alt="instagram-link">
         </a>
 

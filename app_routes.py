@@ -5,7 +5,7 @@ from flask import render_template, request, url_for, flash, session, redirect
 
 from calculation import sender_info , receiver_info, quote_info
 
-from database import get_connection, save_enquiry, load_enquiries
+from database import get_connection, save_enquiry, load_enquiries, update_enquiry_status
 
 from settings import load_settings, save_setting
 
@@ -139,7 +139,7 @@ def admin_login():
 
 
     if session.get("admin_logged_in"):
-        return redirect(url_for("admin_dashbaord"))
+        return redirect(url_for("admin_dashboard"))
 
 
     if request.method == "POST":
@@ -172,6 +172,15 @@ def admin_dashboard():
     return render_template("admin.html", enquiries= all_enquiries, promo_rate = settings["promo"])
 
 
+@app.route("/update_status/<int:enquiry_id> ", methods = ["POST"])
+def update_status(enquiry_id):
+    if not session.get("admin_logged_in"):
+        return redirect(url_for("admin_login"))
+    new_status = request.form.get("status")
+    update_enquiry_status(enquiry_id, new_status)
+  
+
+    return redirect(url_for("admin_dashboard"))
 
 
 

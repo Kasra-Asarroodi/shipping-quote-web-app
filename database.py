@@ -100,3 +100,19 @@ def load_enquiries():
     connection.close()
 
     return [dict(row) for row in rows]
+
+
+
+def update_enquiry_status(enquiry_id, new_status):
+    connection = get_connection()
+
+    query = """
+    UPDATE enquiries
+    SET status = ?
+    WHERE id =?
+    """
+
+    connection.execute(query,(new_status, enquiry_id))
+    connection.commit()
+    connection.close()
+    

@@ -37,6 +37,7 @@
     <div class="enquiryprogress" >
     <form method="POST" id="quote-info" >
         <fieldset>
+            
             <legend> Information on your parcel </legend>
               <p> order to get an idea of the pricing please visit our price information page </p>
             <label>Weight (KG)</label>
@@ -83,12 +84,13 @@
              value="{{ form_data.get('receiver_address', '') }}"> 
             <button type="button" class = "ok-btn" onclick ="closeReceiverPopup()">Submit</button>
           </div>
-            <div class="error-messages" id= "error-messages"></div>
+            
 
             <button type="submit" class="calculate-btn" name = "action" value="calculate">calculate estimate price</button>
             
             <button type="submit" class="submit-btn" name = "action" value="submit">Submit enquiry</button>
             
+            <div class="error-messages" id= "error-messages"></div>
 
             {% if result is not none %}
               <div class="quote-result">
@@ -101,7 +103,7 @@
 
 <footer class="footer-content">
     <div class="social-links">
-        <a href="https://www.instagram.com/p/DY8IT-4Go0_/" target="_blank">
+        <a href="https://www.instagram.com/freightpackaging/" target="_blank">
             <img src="{{ url_for('static', filename='instagram.png') }}" alt="instagram-link">
         </a>
 
