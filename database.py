@@ -1,13 +1,26 @@
 import sqlite3
+import os
 
-DB_FILE = "enquiries.db"
 
-#creating a connection to the SQlite database
+
+DB_FILE = os.getenv("DB_FILE", "enquiries.db")
+
 def get_connection():
+    """
+    Establishes a connection the database.
+    """
     return sqlite3.connect(DB_FILE)
 
-#creating the enquiry table
+
 def create_enquiry_table():
+
+    """
+   Creates the enquiries table if it does not already exist.
+   The table stores customer details, shipment information,
+   pricing and enquiry status.
+    """
+
+    """"""
     connection = get_connection()
 
     query = """
@@ -43,8 +56,12 @@ def create_enquiry_table():
     connection.commit()
     connection.close()
 
-# saving enquiries
+
 def save_enquiry(sender_info, receiver_info, quote_info, promo):
+
+    """
+    Responsible for saving an enquiry and its necessary attributes.
+    """
     connection = get_connection()
 
     query = """
@@ -85,8 +102,12 @@ def save_enquiry(sender_info, receiver_info, quote_info, promo):
     connection.commit()
     connection.close()
 
-#Loading enquiries
+
 def load_enquiries():
+    """
+    Loads every enquiry stored in the database and returns
+    them ordered from newest to oldest based on their ID.
+    """
     connection = get_connection()
     connection.row_factory = sqlite3.Row
 
@@ -104,6 +125,9 @@ def load_enquiries():
 
 
 def update_enquiry_status(enquiry_id, new_status):
+    """
+    Modifies the status of a quote in the database based on its ID.
+    """
     connection = get_connection()
 
     query = """

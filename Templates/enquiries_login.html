@@ -6,7 +6,7 @@
 <body>
    {% with messages = get_flashed_messages() %}
           {% if messages %}
-             <div class = "noenquiry-message">
+             <div class = "popup-message">
                {{ messages [0] }}
                <button type="button" class="flash-close" onclick="this.parentElement.style.display='none'">
                 ×

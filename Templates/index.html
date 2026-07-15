@@ -61,10 +61,10 @@
             <input name="sender_name" id="sendername"placeholder="Sender name" 
              value="{{ form_data.get('sender_name', '') }}">
             <label>Your phone number:</label>
-            <input name="sender_phone" id="senderphone" placeholder="Sender phone"  
+            <input name="sender_phone" id="senderphone" placeholder="0431 321 321"  
              value="{{ form_data.get('sender_phone', '') }}">
             <label>Your Email</label>
-            <input name="sender_email" id = "senderemail" placeholder="Sender email"   
+            <input name="sender_email" id = "senderemail" placeholder="a@gmail.com" 
              value="{{ form_data.get('sender_email', '') }}">
             <button type="button" class = "ok-btn" onclick ="closeSenderPopup()">Submit</button>
           </div>
@@ -79,9 +79,6 @@
             <Label> Enter the receiver's email address</Label>
             <input name ="receiver_email" id = "receiveremail" placeholder = "Receiver email"  
              value="{{ form_data.get('receiver_email', '') }}"> 
-            <Label>Receivers City of residency</Label>
-            <input name="receiver_address" id = "receiveraddress" placeholder="Receiver address"  
-             value="{{ form_data.get('receiver_address', '') }}"> 
             <button type="button" class = "ok-btn" onclick ="closeReceiverPopup()">Submit</button>
           </div>
             

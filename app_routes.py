@@ -18,6 +18,10 @@ from app import app, ADMIN_PASSWORD
 @app.route('/', methods=['GET', 'POST'])
 
 def home():
+
+    """
+    Route to the homepage of the website where the calcuation of the quotes happen and where the user is able to submit an enquiry.
+    """
     result = None
     form_data = {}
     if request.method == 'POST':
@@ -50,11 +54,22 @@ def home():
 
 @app.route("/about")
 def about():
+    """
+    This function creates the route to the about us page.
+    This page briefly introduces the company of freight and packaging.
+    """
+
     return render_template("Aboutus.html")
 
 
 @app.route("/contact")
 def contact():
+
+    """
+    This function creates the route to the contact us page.
+    In this page the user is able to find multiple ways of communcation with the company.
+    
+    """
     return render_template("contactus.html")
 
 
@@ -62,11 +77,22 @@ def contact():
 
 @app.route("/info")
 def info():
+    """
+    This function creates the route to the information page.
+    In this page the user is able to find out more about the pricing details of the quotes.
+    """
     return render_template("info.html")
 
 
 @app.route("/enquiries", methods=["GET", "POST"])
 def enquiries():
+
+    """
+    Allows the user to enter an email which they have previously used to submit a quote.
+    The entered email is then compared with the emails available in the database and is also stored in a session.
+    This function is crucial in order to determine wether there is any previous quotes available with this email.
+    
+    """
 
     if request.method == "POST":
         email = request.form.get("email", "").strip().lower()
@@ -78,14 +104,17 @@ def enquiries():
             stored_email = enquiry["sender_email"].strip().lower()
 
             if email == stored_email:
-                email_exists = True
+                email_exists = True  # Indicates there is a mathcing email from a previous quote with the email user has entered.
                 break
 
         if not email_exists:
             flash("There are no matching enquiries with this email.")
             return redirect(url_for("enquiries"))
 
-        session["costumer_email"] = email
+        
+        session["customer_email"] = email # Remembers the email input in order to show the corresponding previous quotes in the dashboard page.
+        
+       
         return redirect(url_for("enquiries_dashboard"))
 
     return render_template("enquiries_login.html")
@@ -94,19 +123,25 @@ def enquiries():
 
 @app.route("/enquiries_dashboard")
 def enquiries_dashboard():
+    """
+    This function displays the quotes that have been made with the same email user has entered.
+    """
 
-    if not session.get("costumer_email"):
+    if not session.get("customer_email"):
         return redirect(url_for("enquiries"))
 
-    email = session.get("costumer_email")
+    email = session.get("customer_email")
     all_enquiries = load_enquiries()
-    matching_enquiries = []
 
-    for enquiry in all_enquiries:
-        stored_email = enquiry["sender_email"].strip().lower()
+    print("DASHBOARD SESSION EMAIL:", repr(email))
+    
 
-        if stored_email == email:
-            matching_enquiries.append(enquiry)
+    matching_enquiries = [
+    enquiry
+    for enquiry in all_enquiries
+    if enquiry["sender_email"].strip().lower() == email
+    ]
+
 
     return render_template(
         "enquiries.html",
@@ -123,7 +158,12 @@ def enquiries_dashboard():
 @app.route("/enquiries/logout")
 def enquiries_logout():
 
-    session.pop("costumer_email", None)
+    """
+    Once the user is done in the enquiries dashboard page,
+    They can safely exit the dashboard page with the logout option which also terminates the running session.
+    """
+
+    session.pop("customer_email", None)
 
     flash("You have exited your enquiries.")
 
@@ -136,7 +176,10 @@ def enquiries_logout():
 
 @app.route("/admin", methods = ["GET", "POST"])
 def admin_login():
-
+    """
+    This page collects the admin password and compares it with the actual password located as an environment variable.
+    If the entered password matches the real password, the logged in session becomes valid and the admin is redireced to the dashboard.
+    """
 
     if session.get("admin_logged_in"):
         return redirect(url_for("admin_dashboard"))
@@ -156,6 +199,10 @@ def admin_login():
 
 @app.route("/admin/logout")
 def admin_logout():
+
+    """
+    This route allows the admin to successfully log out of the admin page and also terminate the logged in session.
+    """
     session.pop("admin_logged_in", None)
     flash("You have been logged out.")
     return redirect(url_for("admin_login"))
@@ -164,6 +211,9 @@ def admin_logout():
 
 @app.route("/admin/dashboard", methods = ["GET"])
 def admin_dashboard():
+    """
+    Once the admin has entered the correct password, they are able to view all of the enquiries amde throughout this route.
+    """
     if not session.get("admin_logged_in"):
         return redirect(url_for("admin_login"))
     all_enquiries = load_enquiries()
@@ -174,6 +224,9 @@ def admin_dashboard():
 
 @app.route("/update_status/<int:enquiry_id> ", methods = ["POST"])
 def update_status(enquiry_id):
+    """
+    This function allows the admin to dynamically update the status of an individual quote.
+    """
     if not session.get("admin_logged_in"):
         return redirect(url_for("admin_login"))
     new_status = request.form.get("status")
@@ -190,6 +243,9 @@ def update_status(enquiry_id):
 
 @app.route("/update_promo", methods=["POST"])
 def update_promo():
+    """
+    This function allows the admin to enter a promotion rate which influences the final total price.
+    """
     if not session.get("admin_logged_in"):
         return redirect ("/admin")
     
@@ -208,6 +264,11 @@ def update_promo():
 
 
 def delete_enquiry(enquiry_id):
+    """ 
+    Deletes an enquiry from the database so it no longer
+    appears in either the customer dashboard or the
+    administrator dashboard. 
+    """
     connection = get_connection()
 
     connection.execute(
@@ -221,6 +282,9 @@ def delete_enquiry(enquiry_id):
 
 @app.route("/delete_enquiry/<int:enquiry_id>", methods=["POST"])
 def delete_enquiry_route(enquiry_id):
+    """
+    Redirects the user or admin to the correct page based on the page where an application has been deleted from.
+    """
     delete_enquiry(enquiry_id)
     flash("Enquiry deleted successfully.")
     

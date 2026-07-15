@@ -1,4 +1,3 @@
-
 console.log ("kasra");
 const animalContainer = document.getElementById("quoteinfo");
 
@@ -28,6 +27,9 @@ if (animalContainer && typeof defaultType !== "undefined") {
   renderAnimals(initialAnimals);
 }
 
+
+
+
 const searchInput = document.getElementById ('search-name');
 const typeDropdown = document.getElementById ('filter-type');
 
@@ -56,6 +58,7 @@ renderAnimals(filtered);
     searchInput.addEventListener('input', handleFilter);
     typeDropdown.addEventListener('change', handleFilter);
  }
+
 
 
 const errorPromo = document.getElementById ("error-promo");
@@ -88,8 +91,11 @@ if (promoRate && promoForm) {
 const quoteInfo = document.getElementById ("quote-info");
 const errorMsgs = document.getElementById ("error-messages");
 
+
+
 if (quoteInfo) {
   quoteInfo.addEventListener('submit', (e) => {
+    
    
     let errors= [];
 
@@ -113,7 +119,11 @@ if (quoteInfo) {
     const receiverNAME = document.getElementById("receivername").value;
     const receiverPHONE = document.getElementById("receiverphone").value;
     const receiverEMAIL = document.getElementById("receiveremail").value;
-    const receiverADDRESS = document.getElementById("receiveraddress").value;
+   
+    
+
+
+    
 
 
     if (weight === "" || weight > 25) {
@@ -174,6 +184,8 @@ if (quoteInfo) {
         }
 }
      
+
+    
 
   
 

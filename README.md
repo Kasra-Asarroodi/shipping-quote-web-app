@@ -39,6 +39,27 @@ The administrator can:
 - `templates/` — contains HTML pages
 - `static/` — contains CSS, JavaScript and images
 
+
+## Lessons Learned
+
+This project helped me develop practical experience with:
+
+- Flask web development
+- SQLite databases
+- User authentication
+- Environment variables
+- Git and GitHub
+- Deploying applications with Render
+- Debugging and modularising Python applications
+
+## Screenshots
+
+Home Page
+
+Admin Dashboard
+
+Customer Enquiry Page
+
 ## Environment Variables
 
 The application requires:
@@ -48,6 +69,19 @@ The application requires:
 
 These values are stored locally in a `.env` file and are not included in the GitHub repository.
 
+
+## Future Improvements
+
+Future versions of the application may include:
+
+- Customer accounts
+- Email notifications
+- PDF quotations
+- Shipment tracking
+- Improved administrator analytics
+- Automatic shipping rate updates
+
+
 ## Local Installation
 
 ```bash
@@ -55,3 +89,10 @@ python -m venv .venv
 source .venv/bin/activate
 pip install -r requirements.txt
 python app.py
+
+
+
+
+
+
+
