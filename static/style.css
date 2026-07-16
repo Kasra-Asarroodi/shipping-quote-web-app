@@ -967,6 +967,316 @@ How the user is presented with their previous enquiries
 
 
 
+/* Prevent iPhone and iPad from zooming into form inputs */
+input,
+select,
+textarea,
+button {
+    font-size: 16px;
+}
+
+
+
+/* making every page fill the screen*/
+html,
+body {
+    width: 100%;
+    min-height: 100%;
+    margin: 0;
+    padding: 0;
+}
+
+body {
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+}
+
+main,
+.enquiryprogress,
+.enquiries-section,
+.about-container,
+.contact-container,
+.login-page,
+.admin-section {
+    flex: 1;
+}
+
+
+
+/* Final mobile layout overrides */
+@media (max-width: 768px) {
+
+    html,
+    body {
+        width: 100%;
+        min-height: 100%;
+        overflow-x: hidden;
+    }
+
+    body {
+        min-height: 100vh;
+        display: flex;
+        flex-direction: column;
+    }
+
+    header {
+        width: 100%;
+    }
+
+    .navbar {
+        width: 100%;
+        padding: 28px 20px;
+        box-sizing: border-box;
+        flex-direction: column;
+        align-items: center;
+        gap: 22px;
+    }
+
+    .navbar h1,
+    .navbar .logo,
+    .site-title {
+        text-align: center;
+        margin: 0;
+    }
+
+    .nav-links {
+        width: 100%;
+        display: flex;
+        flex-direction: row;
+        justify-content: center;
+        align-items: center;
+        flex-wrap: wrap;
+        gap: 12px 20px;
+    }
+
+    .nav-links a {
+        width: auto;
+        padding: 8px 4px;
+        text-align: center;
+        white-space: nowrap;
+    }
+
+    main,
+    .enquiryprogress,
+    .enquiries-section,
+    .contact-container,
+    .login-page,
+    .admin-section {
+        width: 100%;
+        max-width: none;
+        box-sizing: border-box;
+        flex: 1;
+    }
+
+    form {
+        width: calc(100% - 24px);
+        max-width: 700px;
+        margin: 24px auto;
+        padding: 28px 22px;
+        box-sizing: border-box;
+    }
+
+    input,
+    select,
+    textarea,
+    button {
+        font-size: 16px;
+        box-sizing: border-box;
+    }
+
+    input,
+    select,
+    textarea {
+        width: 100%;
+        min-height: 48px;
+    }
+
+    textarea {
+        min-height: 130px;
+    }
+
+    button,
+    .calculate-btn,
+    .submit-btn,
+    .reset-btn,
+    .ok-btn,
+    .delete-btn {
+        min-height: 46px;
+    }
+
+    .form-buttons,
+    .button-container,
+    .action-buttons {
+        display: flex;
+        flex-direction: column;
+        width: 100%;
+        gap: 12px;
+    }
+
+    .form-buttons button,
+    .button-container button,
+    .action-buttons button {
+        width: 100%;
+    }
+
+    #senderPopup,
+    #receiverPopup {
+        width: calc(100% - 30px);
+        max-width: 500px;
+        padding: 25px 20px;
+        box-sizing: border-box;
+    }
+
+    .enquiry-grid {
+        width: 100%;
+        grid-template-columns: 1fr;
+        gap: 18px;
+    }
+
+    .enquiry-card,
+    .quote-card {
+        width: 100%;
+        box-sizing: border-box;
+    }
+
+    .card-header {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 12px;
+    }
+
+    .status-form {
+        width: 100%;
+        display: flex;
+        flex-direction: column;
+        align-items: stretch;
+        gap: 10px;
+    }
+
+    .status-form select,
+    .status-form button {
+        width: 100%;
+    }
+
+    .delete-btn {
+        width: 100%;
+        margin-top: 14px;
+    }
+
+    footer {
+        width: 100%;
+        margin-top: auto;
+        padding: 28px 16px;
+        box-sizing: border-box;
+    }
+}
+
+
+
+
+/* correcting the layout page of about us seperately */
+@media (max-width: 768px) {
+
+    .about-container {
+        width: 100%;
+        max-width: none;
+        padding: 24px 16px;
+        margin: 0 auto;
+        box-sizing: border-box;
+
+        display: flex;
+        flex-direction: column;
+        gap: 24px;
+    }
+
+    .about-image,
+    .about-text {
+        width: 100%;
+        max-width: none;
+        box-sizing: border-box;
+    }
+
+    .about-image {
+        order: 1;
+    }
+
+    .about-text {
+        order: 2;
+        padding: 24px;
+    }
+
+    .about-image img {
+        display: block;
+        width: 100%;
+        max-width: none;
+        height: auto;
+        margin: 0;
+    }
+
+    .about-text h1,
+    .about-text h2 {
+        font-size: 30px;
+        line-height: 1.15;
+    }
+
+    .about-text p {
+        font-size: 17px;
+        line-height: 1.65;
+    }
+}
+
+
+
+
+
+/* Ennquiry page using more of the screen */
+@media (max-width: 768px) {
+
+    .login-overlay,
+    .enquiries-login-container,
+    .login-page {
+        width: 100%;
+        min-height: calc(100vh - 210px);
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        padding: 30px 16px;
+        box-sizing: border-box;
+    }
+
+    .login-overlay form,
+    .enquiries-login-container form {
+        width: 100%;
+        max-width: 480px;
+        margin: 0;
+        padding: 32px 24px;
+    }
+}
+
+
+
+
+/* improving the calculator page buttons */
+@media (max-width: 768px) {
+
+    .calculate-btn,
+    .submit-btn,
+    .reset-btn,
+    fieldset > button {
+        width: 100%;
+        margin: 6px 0;
+    }
+
+    fieldset {
+        width: 100%;
+        min-width: 0;
+        box-sizing: border-box;
+    }
+}
+
+
+
 /* How the delete button is displayed to the admin and user when attempting to delete an enquiry */
 
 .delete-btn {
