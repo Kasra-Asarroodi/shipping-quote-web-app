@@ -43,7 +43,7 @@ def home():
 
         if action == "submit":
             save_enquiry(sender, receiver, quote, promo)
-            flash("Your enquiry has been submitted successfully!")
+            flash("Your enquiry has been submitted!")
 
             
         
@@ -108,7 +108,7 @@ def enquiries():
                 break
 
         if not email_exists:
-            flash("There are no matching enquiries with this email.")
+            flash("No matching enquiries with this email.")
             return redirect(url_for("enquiries"))
 
         
@@ -133,7 +133,6 @@ def enquiries_dashboard():
     email = session.get("customer_email")
     all_enquiries = load_enquiries()
 
-    print("DASHBOARD SESSION EMAIL:", repr(email))
     
 
     matching_enquiries = [
