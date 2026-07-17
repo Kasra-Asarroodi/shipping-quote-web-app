@@ -16,7 +16,7 @@ Although the application is fully functional, there are many improvements that c
 - Improved form validation.
 - PostgreSQL migration.
 - Automated testing.
-- CI/CD pipeline using GitHub Actions.
+
 
 ---
 
