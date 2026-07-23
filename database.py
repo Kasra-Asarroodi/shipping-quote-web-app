@@ -5,6 +5,7 @@ import os
 
 DB_FILE = os.getenv("DB_FILE", "enquiries.db")
 
+
 def get_connection():
     """
     Establishes a connection the database.
@@ -139,4 +140,51 @@ def update_enquiry_status(enquiry_id, new_status):
     connection.execute(query,(new_status, enquiry_id))
     connection.commit()
     connection.close()
+
+
+
+
+
+def create_statistics_table():
+    connection = sqlite3.connect(DB_FILE)
+
+    connection.execute("""
+        CREATE TABLE IF NOT EXISTS statistics (
+            quote_calculations INTEGER
+        )
+    """)
+
+    connection.execute("""
+        INSERT INTO statistics (quote_calculations)
+        SELECT 0
+        WHERE NOT EXISTS (SELECT * FROM statistics)
+    """)
+    connection.commit()
+    connection.close()
     
+
+
+def increment_quote_calculations():
+    connection = sqlite3.connect(DB_FILE)
+
+    connection.execute(
+            "UPDATE statistics SET quote_calculations = quote_calculations + 1"
+        )
+
+    connection.commit()
+    connection.close()
+
+
+
+def get_quote_calculations():
+    connection = sqlite3.connect(DB_FILE)
+
+    result = connection.execute(
+        "SELECT quote_calculations FROM statistics"
+    ).fetchone()
+
+    connection.close()
+
+   
+
+    return result[0]

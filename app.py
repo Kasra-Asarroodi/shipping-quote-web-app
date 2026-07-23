@@ -1,7 +1,7 @@
 from flask import Flask
 import os
 from dotenv import load_dotenv
-from database import create_enquiry_table
+from database import create_enquiry_table, create_statistics_table
 load_dotenv()
 
 app = Flask(__name__)
@@ -21,6 +21,7 @@ app.secret_key = SECRET_KEY
 
 
 create_enquiry_table()
+create_statistics_table()
 
 
 

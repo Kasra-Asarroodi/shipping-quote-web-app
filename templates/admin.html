@@ -38,6 +38,18 @@
 </header>
 
 
+<section class="admin-stats">
+    <div class="stat-card">
+
+        <div class="stat-content">
+            <p class="stat-label">Total quote calculations</p>
+            <p class="stat-number">{{ quote_calculations }}</p>
+        </div>
+    </div>
+</section>
+
+
+
 
 {% if enquiries %}
 <section class="enquiries-section">
@@ -55,6 +67,7 @@
                 <h4>Sender</h4>
                 <p><strong>Name:</strong> {{ enquiry.sender_name }}</p>
                 <p><strong>Email:</strong> {{ enquiry.sender_email }}</p>
+                <p><strong>Phone number:</strong> {{ enquiry.sender_phone }}</p>
             </div>
 
             <div>

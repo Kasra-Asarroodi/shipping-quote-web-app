@@ -5,7 +5,7 @@ from flask import render_template, request, url_for, flash, session, redirect
 
 from calculation import sender_info , receiver_info, quote_info
 
-from database import get_connection, save_enquiry, load_enquiries, update_enquiry_status
+from database import get_connection, save_enquiry, load_enquiries, update_enquiry_status, increment_quote_calculations, get_quote_calculations
 
 from settings import load_settings, save_setting
 
@@ -34,16 +34,20 @@ def home():
       
 
         result = quote["total_price"]
-
+         
 
         if action == "calculate": 
              form_data = request.form
+
+             increment_quote_calculations()
              
 
 
         if action == "submit":
             save_enquiry(sender, receiver, quote, promo)
             flash("Your enquiry has been submitted!")
+
+
 
             
         
@@ -217,8 +221,7 @@ def admin_dashboard():
         return redirect(url_for("admin_login"))
     all_enquiries = load_enquiries()
     settings = load_settings()
-
-    return render_template("admin.html", enquiries= all_enquiries, promo_rate = settings["promo"])
+    return render_template("admin.html", enquiries= all_enquiries, promo_rate = settings["promo"], quote_calculations = get_quote_calculations())
 
 
 @app.route("/update_status/<int:enquiry_id> ", methods = ["POST"])
@@ -235,6 +238,13 @@ def update_status(enquiry_id):
     return redirect(url_for("admin_dashboard"))
 
 
+
+
+
+
+    
+
+    
 
 
 
